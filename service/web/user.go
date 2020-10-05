@@ -3,6 +3,7 @@ package web
 import (
 	"context"
 	"fmt"
+	"github.com/evt/simple-web-server/lib/types"
 	"github.com/evt/simple-web-server/model"
 	"github.com/evt/simple-web-server/repository"
 	"github.com/google/uuid"
@@ -33,7 +34,7 @@ func (svc *UserWebService) GetUser(ctx context.Context, userID uuid.UUID) (*mode
 		return nil, errors.Wrap(err, "svc.user.GetUser")
 	}
 	if userDB == nil {
-		return nil, errors.Wrap(model.ErrBadRequest, fmt.Sprintf("User '%s' not found", userID.String()))
+		return nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("User '%s' not found", userID.String()))
 	}
 
 	return userDB.ToWeb(), nil
@@ -41,6 +42,8 @@ func (svc *UserWebService) GetUser(ctx context.Context, userID uuid.UUID) (*mode
 
 // CreateUser ...
 func (svc UserWebService) CreateUser(ctx context.Context, reqUser *model.User) (*model.User, error) {
+	reqUser.ID = uuid.New()
+
 	_, err := svc.userRepo.CreateUser(ctx, reqUser.ToDB())
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.CreateUser error")
@@ -62,7 +65,7 @@ func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) 
 		return nil, errors.Wrap(err, "svc.user.GetUser error")
 	}
 	if userDB == nil {
-		return nil, errors.Wrap(model.ErrBadRequest, fmt.Sprintf("User '%s' not found", reqUser.ID.String()))
+		return nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("User '%s' not found", reqUser.ID.String()))
 	}
 
 	// update user

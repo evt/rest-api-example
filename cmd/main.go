@@ -5,6 +5,8 @@ import (
 	"github.com/evt/simple-web-server/config"
 	"github.com/evt/simple-web-server/controller"
 	"github.com/evt/simple-web-server/db"
+	libError "github.com/evt/simple-web-server/lib/error"
+	"github.com/evt/simple-web-server/lib/validator"
 	"github.com/evt/simple-web-server/logger"
 	"github.com/evt/simple-web-server/repository/pg"
 	"github.com/evt/simple-web-server/service/web"
@@ -59,6 +61,8 @@ func run() error {
 
 	// Initialize Echo instance
 	e := echo.New()
+	e.Validator = validator.NewValidator()
+	e.HTTPErrorHandler = libError.Error
 
 	// Middleware
 	e.Use(middleware.Logger())
@@ -67,6 +71,7 @@ func run() error {
 	// Routes
 	userRoutes := e.Group("/users")
 	userRoutes.GET("/", userController.Get)
+	userRoutes.POST("/", userController.Create)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

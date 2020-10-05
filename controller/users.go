@@ -42,7 +42,7 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 		return err
 	}
 
-	return ctx.JSON(http.StatusOK, user)
+	return ctx.JSON(http.StatusCreated, user)
 }
 
 // Get fetches user from DB

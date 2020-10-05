@@ -8,8 +8,8 @@ import (
 // User is a JSON user
 type User struct {
 	ID        uuid.UUID `json:"id"`
-	Firstname string    `json:"firstname"`
-	Lastname  string    `json:"lastname"`
+	Firstname string    `json:"firstname" validate:"required"`
+	Lastname  string    `json:"lastname" validate:"required"`
 	Created   time.Time `json:"created"`
 }
 

@@ -20,12 +20,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9303c3c6-01a1-44ac-9f78-b22c90c71860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/service/web/user_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/users_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/error/error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/types/types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/validator/validator.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/repositories.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/repositories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/services.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/common.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/web/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/web/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,21 +58,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/service/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/controller" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/error" />
+      <recent name="$PROJECT_DIR$/lib/types" />
       <recent name="$PROJECT_DIR$/service/web" />
       <recent name="$PROJECT_DIR$/service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/controller" />
       <recent name="$PROJECT_DIR$/service/web" />
       <recent name="$PROJECT_DIR$/db/migrations" />
       <recent name="$PROJECT_DIR$/cmd" />
@@ -109,9 +119,13 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="487" y="289" key="EditFileWatcherDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1601761408858" />
-    <state x="341" y="143" key="SettingsEditor" timestamp="1601761410472">
+    <state x="341" y="143" key="SettingsEditor" timestamp="1601927767667">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="341" y="143" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1601761410472" />
+    <state x="341" y="143" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1601927767667" />
+    <state x="532" y="231" width="615" height="548" key="find.popup" timestamp="1601929735600">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="532" y="231" width="615" height="548" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1601929735600" />
   </component>
 </project>
