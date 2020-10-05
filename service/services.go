@@ -7,7 +7,7 @@ import (
 )
 
 // UserService is a service for users
-//go:generate mockery -dir . -name UserService -output ./mocks
+//go:generate mockery --dir . --name UserService --output ./mocks
 type UserService interface {
 	GetUser(context.Context, uuid.UUID) (*model.User, error)
 	CreateUser(context.Context, *model.User) (*model.User, error)

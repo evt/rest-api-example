@@ -8,7 +8,7 @@ import (
 )
 
 // UserRepo is a repository for users
-//go:generate mockery -dir . -name UserRepo -output ./mocks
+//go:generate mockery --dir . --name UserRepo --output ./mocks
 type UserRepo interface {
 	GetUser(context.Context, uuid.UUID) (*model.DBUser, error)
 	CreateUser(context.Context, *model.DBUser) (*model.DBUser, error)
