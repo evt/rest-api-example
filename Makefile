@@ -1,8 +1,8 @@
 build:
-	go build -o cmd/simple-web-server cmd/main.go
+	go build -o cmd/api/simple-web-server cmd/api/main.go
 
 run:
-	cd cmd; ./rundev.sh
+	cd cmd/api; ./rundev.sh
 
 test:
 	go test -v ./...

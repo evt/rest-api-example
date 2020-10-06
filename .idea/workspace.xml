@@ -23,10 +23,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9303c3c6-01a1-44ac-9f78-b22c90c71860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/migrations/20201003153445_init.down.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/gcloud/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository/pg/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/gcloud/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/web/file.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/users_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/users_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/env.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/env.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/rundev.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/rundev.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/migrations/20200629153445_init.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/migrations/20200629153445_init.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository/repositories.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/repositories.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/services.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/web/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/web/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,22 +77,23 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/controller" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd/api" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/api" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/lib/error" />
       <recent name="$PROJECT_DIR$/lib/types" />
       <recent name="$PROJECT_DIR$/service/web" />
-      <recent name="$PROJECT_DIR$/service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd/api" />
+      <recent name="$PROJECT_DIR$/db/migrations" />
       <recent name="$PROJECT_DIR$/controller" />
       <recent name="$PROJECT_DIR$/service/web" />
-      <recent name="$PROJECT_DIR$/db/migrations" />
-      <recent name="$PROJECT_DIR$/cmd" />
-      <recent name="$PROJECT_DIR$/config" />
+      <recent name="$PROJECT_DIR$/model" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -129,15 +145,16 @@
     </state>
     <state x="487" y="289" key="EditFileWatcherDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1601761408858" />
     <state x="557" y="295" width="705" height="627" key="EditFileWatcherDialog/0.23.1920.988@0.23.1920.988" timestamp="1601961708932" />
-    <state x="390" y="158" key="SettingsEditor" timestamp="1601961709637">
-      <screen x="0" y="23" width="1920" height="988" />
+    <state x="390" y="158" key="SettingsEditor" timestamp="1601999842610">
+      <screen x="0" y="23" width="1920" height="987" />
     </state>
     <state x="341" y="143" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1601927767667" />
+    <state x="390" y="158" key="SettingsEditor/0.23.1920.987@0.23.1920.987" timestamp="1601999842610" />
     <state x="390" y="158" key="SettingsEditor/0.23.1920.988@0.23.1920.988" timestamp="1601961709637" />
-    <state x="608" y="240" width="703" height="516" key="find.popup" timestamp="1601962258974">
+    <state x="610" y="240" width="703" height="548" key="find.popup" timestamp="1601987123579">
       <screen x="0" y="23" width="1920" height="988" />
     </state>
     <state x="532" y="231" width="615" height="548" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1601929735600" />
-    <state x="608" y="240" width="703" height="516" key="find.popup/0.23.1920.988@0.23.1920.988" timestamp="1601962258974" />
+    <state x="610" y="240" width="703" height="548" key="find.popup/0.23.1920.988@0.23.1920.988" timestamp="1601987123579" />
   </component>
 </project>

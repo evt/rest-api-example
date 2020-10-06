@@ -22,6 +22,7 @@ type Config struct {
 	PgCertPath       string `envconfig:"PG_CERT_PATH"`
 	PgLocation       string `envconfig:"PG_LOCATION"`
 	HTTPAddr         string `envconfig:"HTTP_ADDR"`
+	GCBucket         string `envconfig:"GC_BUCKET"`
 }
 
 var (

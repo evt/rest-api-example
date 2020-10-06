@@ -15,3 +15,19 @@ type UserService interface {
 	UpdateUser(context.Context, *model.User) (*model.User, error)
 	DeleteUser(context.Context, uuid.UUID) error
 }
+
+// FileService is a service for files
+//go:generate mockery --dir . --name FileService --output ./mocks
+type FileService interface {
+	GetFile(context.Context, uuid.UUID) (*model.File, error)
+	CreateFile(context.Context, *model.File) (*model.File, error)
+	UpdateFile(context.Context, *model.File) (*model.File, error)
+	DeleteFile(context.Context, uuid.UUID) error
+}
+
+// FileContentService is a service to upload file content
+//go:generate mockery --dir . --name FileContentService --output ./mocks
+type FileContentService interface {
+	Upload(context.Context, uuid.UUID, []byte) error
+	Download(context.Context, uuid.UUID) ([]byte, *model.DBFile, error)
+}

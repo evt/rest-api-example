@@ -3,6 +3,11 @@ package main
 import (
 	"context"
 
+	"github.com/evt/simple-web-server/gcloud"
+
+	gcloudRepo "github.com/evt/simple-web-server/repository/gcloud"
+	gcloudService "github.com/evt/simple-web-server/service/gcloud"
+
 	"github.com/evt/simple-web-server/config"
 	"github.com/evt/simple-web-server/controller"
 	"github.com/evt/simple-web-server/db"
@@ -49,14 +54,25 @@ func run() error {
 		log.Fatal(err)
 	}
 
+	// connect to google cloud
+	cloudStorage, err := gcloud.Init(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Init repositories
 	userRepo := pg.NewUserRepo(pgDB)
+	fileRepo := pg.NewFileRepo(pgDB)
+	fileContentRepo := gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
 
 	// Init services
 	userService := web.NewUserWebService(ctx, userRepo)
+	fileService := web.NewFileWebService(ctx, fileRepo)
+	fileContentService := gcloudService.NewFileContentService(ctx, fileRepo, fileContentRepo)
 
 	// Init controllers
 	userController := controller.NewUsers(ctx, userService, l)
+	fileController := controller.NewFiles(ctx, fileService, fileContentService, l)
 
 	// Initialize Echo instance
 	e := echo.New()
@@ -67,12 +83,20 @@ func run() error {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Routes
-	userRoutes := e.Group("/users")
+	// User routes
+	userRoutes := e.Group("/user")
+	userRoutes.POST("/", userController.Create)
 	userRoutes.GET("/:id", userController.Get)
 	userRoutes.DELETE("/:id", userController.Delete)
 	//userRoutes.PUT("/:id", userController.Update)
-	userRoutes.POST("/", userController.Create)
+
+	// File routes
+	fileRoutes := e.Group("/file")
+	fileRoutes.POST("/", fileController.Create)
+	fileRoutes.GET("/:id", fileController.Get)
+	fileRoutes.DELETE("/:id", fileController.Delete)
+	fileRoutes.PUT("/:id/content", fileController.Upload)
+	fileRoutes.GET("/:id/content", fileController.Download)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

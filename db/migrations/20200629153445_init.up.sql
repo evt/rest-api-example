@@ -3,6 +3,6 @@ CREATE TABLE users (
 	firstname text NOT NULL,
 	lastname text NOT NULL,
 	created timestamp default current_timestamp,
-	CONSTRAINT "pk_test_id" PRIMARY KEY (id)
+	CONSTRAINT "pk_user_id" PRIMARY KEY (id)
 );
 

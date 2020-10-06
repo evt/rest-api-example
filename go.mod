@@ -3,6 +3,7 @@ module github.com/evt/simple-web-server
 go 1.14
 
 require (
+	cloud.google.com/go/storage v1.10.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/evt/video12 v0.0.0-20200927190806-8dc498574c8f // indirect
 	github.com/go-pg/pg/v10 v10.3.2

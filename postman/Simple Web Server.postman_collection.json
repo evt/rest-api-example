@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "8e87341e-2892-494b-a0e9-8ff700847a2e",
+		"name": "Simple Web Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:1323/user/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Eugene\",\n    \"lastname\": \"Toropov\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:1323/user/"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:1323/user/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Eugene\",\n    \"lastname\": \"Toropov\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:1323/user/b2097b84-f83b-45f7-a78b-f0b66bae921b"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:1323/file/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filename\": \"eugene.pdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:1323/file/"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:1323/file/",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Eugene\",\n    \"lastname\": \"Toropov\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:1323/file/cbdf7258-9919-43e7-ae65-eb5ac119711a"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:1323/file/:id/content",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/Users/jt/Downloads/6nomads/Eugene.pdf"
+					},
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:1323/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:1323/file/:id/content",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:1323/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

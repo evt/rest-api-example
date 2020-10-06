@@ -18,10 +18,7 @@ type UserWebService struct {
 }
 
 // NewUserWebService creates a new user web service
-func NewUserWebService(
-	ctx context.Context,
-	user repository.UserRepo,
-) *UserWebService {
+func NewUserWebService(ctx context.Context, user repository.UserRepo) *UserWebService {
 	return &UserWebService{
 		ctx:      ctx,
 		userRepo: user,
