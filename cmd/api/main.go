@@ -27,19 +27,6 @@ import (
 	"log"
 )
 
-// @title Simple API Server
-// @version 1.0
-// @description This is an example of simple API server.
-
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email eugene@go-masters.co
-
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host example.swagger.io
-// @BasePath /v1
 func main() {
 	if err := run(); err != nil {
 		log.Fatal(err)
