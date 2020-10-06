@@ -2,6 +2,13 @@ package controller
 
 import (
 	"context"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
+
+	"github.com/evt/simple-web-server/logger"
+
 	"github.com/evt/simple-web-server/lib/types"
 	"github.com/evt/simple-web-server/lib/validator"
 	"github.com/evt/simple-web-server/model"
@@ -9,13 +16,11 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
-	"net/http"
-	"net/http/httptest"
-	"strings"
-	"testing"
 )
 
 func TestCreateUser(t *testing.T) {
+	l := logger.Get()
+
 	testUser := &model.User{
 		Firstname: "Eugene",
 		Lastname:  "Toropov",
@@ -53,10 +58,11 @@ func TestCreateUser(t *testing.T) {
 		{
 			testName: "service error",
 			expectations: func(ctx context.Context, svc *mocks.UserService) {
-				svc.On("CreateUser", ctx, testUser).Return(nil, types.ErrDuplicateEntry)
+				svc.On("CreateUser", ctx, testUser).Return(nil, types.ErrBadRequest)
 			},
 			input: `{ "firstname": "Eugene", "lastname": "Toropov" }`,
-			err:   errors.New("duplicate entry"),
+			err:   errors.New("code=400, message=could not create user: bad request"),
+			code:  http.StatusBadRequest,
 		},
 	}
 
@@ -77,7 +83,7 @@ func TestCreateUser(t *testing.T) {
 
 		test.expectations(ctx.Request().Context(), svc)
 
-		d := &UserController{ctx.Request().Context(), svc}
+		d := &UserController{ctx.Request().Context(), svc, l}
 		err = d.Create(ctx)
 		assert.Equal(t, test.err == nil, err == nil)
 		if err != nil {

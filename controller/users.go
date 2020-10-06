@@ -46,7 +46,12 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 
 	createdUser, err := ctr.userSvc.CreateUser(ctx.Request().Context(), &user)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not create user"))
+		switch {
+		case errors.Cause(err) == types.ErrBadRequest:
+			return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not create user"))
+		default:
+			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not create user"))
+		}
 	}
 
 	ctr.logger.Debug().Msgf("Created user '%s'", createdUser.ID.String())
