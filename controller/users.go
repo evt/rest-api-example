@@ -37,12 +37,12 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	_, err = ctr.userSvc.CreateUser(ctx.Request().Context(), &user)
+	createdUser, err := ctr.userSvc.CreateUser(ctx.Request().Context(), &user)
 	if err != nil {
 		return err
 	}
 
-	return ctx.JSON(http.StatusCreated, user)
+	return ctx.JSON(http.StatusCreated, createdUser)
 }
 
 // Get fetches user from DB
