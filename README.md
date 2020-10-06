@@ -11,3 +11,4 @@ This is Golang REST API server example including the following features:
 - Postman tests included aswell
 - config based on envconfig (https://github.com/kelseyhightower/envconfig)
 - made relatively fast :) but with love :)
+- more details in my Youtube video that I'm going to make tomorrow :)
