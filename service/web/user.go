@@ -3,6 +3,7 @@ package web
 import (
 	"context"
 	"fmt"
+
 	"github.com/evt/simple-web-server/lib/types"
 	"github.com/evt/simple-web-server/model"
 	"github.com/evt/simple-web-server/repository"
@@ -84,11 +85,20 @@ func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) 
 }
 
 // DeleteUser ...
-func (svc *UserWebService) DeleteUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
-	user, err := svc.userRepo.DeleteUser(ctx, userID)
+func (svc *UserWebService) DeleteUser(ctx context.Context, userID uuid.UUID) error {
+	// Check if user exists
+	userDB, err := svc.userRepo.GetUser(ctx, userID)
 	if err != nil {
-		return nil, errors.Wrap(err, "svc.user.DeleteUser error")
+		return errors.Wrap(err, "svc.user.GetUser error")
+	}
+	if userDB == nil {
+		return errors.Wrap(types.ErrNotFound, fmt.Sprintf("User '%s' not found", userID.String()))
 	}
 
-	return user.ToWeb(), nil
+	err = svc.userRepo.DeleteUser(ctx, userID)
+	if err != nil {
+		return errors.Wrap(err, "svc.user.DeleteUser error")
+	}
+
+	return nil
 }

@@ -2,10 +2,15 @@ package controller
 
 import (
 	"context"
+	"net/http"
+
+	"github.com/evt/simple-web-server/logger"
+
+	"github.com/evt/simple-web-server/lib/types"
+
 	"github.com/evt/simple-web-server/service"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
-	"net/http"
 
 	"github.com/evt/simple-web-server/model"
 	"github.com/labstack/echo/v4"
@@ -15,13 +20,15 @@ import (
 type UserController struct {
 	ctx     context.Context
 	userSvc service.UserService
+	logger  *logger.Logger
 }
 
 // NewUsers creates a new user controller.
-func NewUsers(ctx context.Context, userSvc service.UserService) *UserController {
+func NewUsers(ctx context.Context, userSvc service.UserService, logger *logger.Logger) *UserController {
 	return &UserController{
 		ctx:     ctx,
 		userSvc: userSvc,
+		logger:  logger,
 	}
 }
 
@@ -39,21 +46,44 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 
 	createdUser, err := ctr.userSvc.CreateUser(ctx.Request().Context(), &user)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not create user"))
 	}
+
+	ctr.logger.Debug().Msgf("Created user '%s'", createdUser.ID.String())
 
 	return ctx.JSON(http.StatusCreated, createdUser)
 }
 
-// Get fetches user from DB
+// Get returns user by ID
 func (ctr *UserController) Get(ctx echo.Context) error {
-	userID, err := uuid.Parse(ctx.QueryParam("id"))
+	userID, err := uuid.Parse(ctx.Param("id"))
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse user UUID"))
 	}
 	user, err := ctr.userSvc.GetUser(ctx.Request().Context(), userID)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not read user"))
+		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not get user"))
 	}
 	return ctx.JSON(http.StatusOK, user)
+}
+
+// Delete deletes user by ID
+func (ctr *UserController) Delete(ctx echo.Context) error {
+	userID, err := uuid.Parse(ctx.Param("id"))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse user UUID"))
+	}
+	err = ctr.userSvc.DeleteUser(ctx.Request().Context(), userID)
+	if err != nil {
+		switch {
+		case errors.Cause(err) == types.ErrNotFound:
+			return echo.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "could not delete user"))
+		default:
+			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not delete user"))
+		}
+	}
+
+	ctr.logger.Debug().Msgf("Deleted user '%s'", userID.String())
+
+	return ctx.JSON(http.StatusOK, model.OK)
 }

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+
 	"github.com/google/uuid"
 
 	"github.com/evt/simple-web-server/model"
@@ -13,5 +14,5 @@ type UserRepo interface {
 	GetUser(context.Context, uuid.UUID) (*model.DBUser, error)
 	CreateUser(context.Context, *model.DBUser) (*model.DBUser, error)
 	UpdateUser(context.Context, *model.DBUser) (*model.DBUser, error)
-	DeleteUser(context.Context, uuid.UUID) (*model.DBUser, error)
+	DeleteUser(context.Context, uuid.UUID) error
 }

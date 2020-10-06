@@ -2,6 +2,7 @@ package pg
 
 import (
 	"context"
+
 	"github.com/google/uuid"
 
 	"github.com/evt/simple-web-server/db"
@@ -62,17 +63,15 @@ func (repo *UserPgRepo) UpdateUser(ctx context.Context, user *model.DBUser) (*mo
 }
 
 // DeleteUser deletes user in Postgres
-func (repo *UserPgRepo) DeleteUser(ctx context.Context, id uuid.UUID) (*model.DBUser, error) {
-	user := &model.DBUser{}
-	_, err := repo.db.Model(user).
+func (repo *UserPgRepo) DeleteUser(ctx context.Context, id uuid.UUID) error {
+	_, err := repo.db.Model((*model.DBUser)(nil)).
 		Where("id = ?", id).
-		Returning("*").
 		Delete()
 	if err != nil {
-		if err == pg.ErrNoRows { //not found
-			return nil, nil
+		if err == pg.ErrNoRows {
+			return nil
 		}
-		return nil, err
+		return err
 	}
-	return user, nil
+	return nil
 }

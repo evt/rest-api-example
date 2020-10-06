@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	"github.com/evt/simple-web-server/config"
 	"github.com/evt/simple-web-server/controller"
 	"github.com/evt/simple-web-server/db"
@@ -10,11 +11,9 @@ import (
 	"github.com/evt/simple-web-server/logger"
 	"github.com/evt/simple-web-server/repository/pg"
 	"github.com/evt/simple-web-server/service/web"
-	"github.com/pkg/errors"
-	"net/http"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/pkg/errors"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -36,7 +35,7 @@ func run() error {
 	cfg := config.Get()
 
 	// logger
-	_ = logger.Get()
+	l := logger.Get()
 
 	// connect to Postgres
 	pgDB, err := db.Dial(cfg)
@@ -57,7 +56,7 @@ func run() error {
 	userService := web.NewUserWebService(ctx, userRepo)
 
 	// Init controllers
-	userController := controller.NewUsers(ctx, userService)
+	userController := controller.NewUsers(ctx, userService, l)
 
 	// Initialize Echo instance
 	e := echo.New()
@@ -70,7 +69,9 @@ func run() error {
 
 	// Routes
 	userRoutes := e.Group("/users")
-	userRoutes.GET("/", userController.Get)
+	userRoutes.GET("/:id", userController.Get)
+	userRoutes.DELETE("/:id", userController.Delete)
+	//userRoutes.PUT("/:id", userController.Update)
 	userRoutes.POST("/", userController.Create)
 
 	// Start server
@@ -98,9 +99,4 @@ func runMigrations(cfg *config.Config) error {
 		return err
 	}
 	return nil
-}
-
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
 }
