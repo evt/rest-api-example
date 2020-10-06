@@ -7,7 +7,7 @@ This is Golang REST API server example including the following features:
 - based on high performance, extensible, minimalist Go web framework - Echo - https://echo.labstack.com 
 - made with Clean Architecture in mind (controller -> service -> repository)
 - has services that work with both PostgreSQL database (user CRUD) and Google Cloud Storage (file upload/download)
-- includes service & controller tests based on database mocks auto-generated with go:generate and mockery (https://github.com/vektra/mockery)
+- includes service & controller go tests based on database mocks auto-generated with go:generate and mockery (https://github.com/vektra/mockery)
 - Postman tests included aswell
 - config based on envconfig (https://github.com/kelseyhightower/envconfig)
 - made relatively fast :) but with love :)
