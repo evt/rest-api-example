@@ -27,6 +27,19 @@ import (
 	"log"
 )
 
+// @title Simple API Server
+// @version 1.0
+// @description This is an example of simple API server.
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email eugene@go-masters.co
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host example.swagger.io
+// @BasePath /v1
 func main() {
 	if err := run(); err != nil {
 		log.Fatal(err)
@@ -83,15 +96,18 @@ func run() error {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	// API V1
+	v1 := e.Group("/v1")
+
 	// User routes
-	userRoutes := e.Group("/user")
+	userRoutes := v1.Group("/user")
 	userRoutes.POST("/", userController.Create)
 	userRoutes.GET("/:id", userController.Get)
 	userRoutes.DELETE("/:id", userController.Delete)
 	//userRoutes.PUT("/:id", userController.Update)
 
 	// File routes
-	fileRoutes := e.Group("/file")
+	fileRoutes := v1.Group("/file")
 	fileRoutes.POST("/", fileController.Create)
 	fileRoutes.GET("/:id", fileController.Get)
 	fileRoutes.DELETE("/:id", fileController.Delete)

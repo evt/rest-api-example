@@ -23,25 +23,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9303c3c6-01a1-44ac-9f78-b22c90c71860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controller/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/migrations/20201003153445_init.down.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/gcloud/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repository/pg/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/gcloud/file.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service/web/file.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/env.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/env.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/rundev.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/rundev.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/migrations/20200629153445_init.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/migrations/20200629153445_init.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/repositories.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/repositories.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/services.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/web/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/web/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postman/Simple Web Server.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/Simple Web Server.postman_collection.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

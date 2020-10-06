@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:1323/user/",
+			"name": "http://localhost:1323/v1/user/",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -19,12 +19,12 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/user/"
+				"url": "http://localhost:1323/v1/user/"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:1323/user/",
+			"name": "http://localhost:1323/v1/user/",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -37,12 +37,12 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/user/b2097b84-f83b-45f7-a78b-f0b66bae921b"
+				"url": "http://localhost:1323/v1/user/b2097b84-f83b-45f7-a78b-f0b66bae921b"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:1323/file/",
+			"name": "http://localhost:1323/v1/file/",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -55,7 +55,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/file/"
+				"url": "http://localhost:1323/v1/file/"
 			},
 			"response": []
 		},
@@ -73,12 +73,12 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/file/cbdf7258-9919-43e7-ae65-eb5ac119711a"
+				"url": "http://localhost:1323/v1/file/cbdf7258-9919-43e7-ae65-eb5ac119711a"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:1323/file/:id/content",
+			"name": "http://localhost:1323/v1/file/:id/content",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -93,16 +93,16 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+				"url": "http://localhost:1323/v1/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:1323/file/:id/content",
+			"name": "http://localhost:1323/v1/file/:id/content",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:1323/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+				"url": "http://localhost:1323/v1/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
 			},
 			"response": []
 		}
