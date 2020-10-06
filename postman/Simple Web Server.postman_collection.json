@@ -24,6 +24,15 @@
 			"response": []
 		},
 		{
+			"name": "http://localhost:1323/v1/user/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:1323/v1/user/41a381d8-ef72-4478-b03e-501a4debd37e"
+			},
+			"response": []
+		},
+		{
 			"name": "http://localhost:1323/v1/user/",
 			"request": {
 				"method": "DELETE",
