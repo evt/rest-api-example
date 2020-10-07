@@ -1,11 +1,13 @@
 ![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
 ![Repository Top Language](https://img.shields.io/github/languages/top/evt/rest-api-example)
 ![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/evt/rest-api-example/main)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/evt/rest-api-example)
 ![Codacy Grade](https://img.shields.io/codacy/grade/c9467ed47e064b1981e53862d0286d65)
 ![Github Repository Size](https://img.shields.io/github/repo-size/evt/rest-api-example)
 ![Github Open Issues](https://img.shields.io/github/issues/evt/rest-api-example)
 ![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/evt/rest-api-example)
 
 <img align="right" width="50%" src="./images/big-gopher.jpg">
 
