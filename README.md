@@ -1,4 +1,5 @@
 ![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
+![Go Report](https://goreportcard.com/badge/github.com/evt/rest-api-example)
 ![Repository Top Language](https://img.shields.io/github/languages/top/evt/rest-api-example)
 ![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/evt/rest-api-example/main)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/evt/rest-api-example)
