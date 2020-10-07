@@ -1,4 +1,5 @@
-![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go?style=plastic)
+![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
 
 # REST API Server example
 Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Developer position to create a simple Golang REST API server doing something useful (anything useful).
