@@ -5,7 +5,7 @@
 ![Github Repository Size](https://img.shields.io/github/repo-size/evt/rest-api-example)
 ![Github Open Issues](https://img.shields.io/github/issues/evt/rest-api-example)
 ![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
+![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
 
 <img align="right" width="50%" src="./images/big-gopher.jpg">
 
@@ -15,7 +15,7 @@ Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Dev
 I won't show his code here :) But as a result I realized I don't have my answer to this question :) So, here it is!
 
 This is Golang REST API server example including the following features:
-*   based on high performance, extensible, minimalist Go web framework - Echo - <https://echo.labstack.com> 
+*   based on high performance, extensible, minimalist Go web framework - <img height="20px" src="./images/echo-logo.svg"> - <https://echo.labstack.com> 
 *   made with Clean Architecture in mind (controller -> service -> repository)
 *   has services that work with both PostgreSQL database (user CRUD) and Google Cloud Storage (file upload/download)
 *   includes service & controller go tests based on database mocks auto-generated with go:generate and mockery (<https://github.com/vektra/mockery>)
