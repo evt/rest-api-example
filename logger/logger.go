@@ -1,10 +1,11 @@
 package logger
 
 import (
-	"github.com/evt/simple-web-server/config"
-	"github.com/rs/zerolog"
 	"os"
 	"sync"
+
+	"github.com/evt/rest-api-example/config"
+	"github.com/rs/zerolog"
 )
 
 // Logger is a logger :)

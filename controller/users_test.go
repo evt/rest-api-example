@@ -7,12 +7,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/evt/simple-web-server/logger"
+	"github.com/evt/rest-api-example/logger"
 
-	"github.com/evt/simple-web-server/lib/types"
-	"github.com/evt/simple-web-server/lib/validator"
-	"github.com/evt/simple-web-server/model"
-	"github.com/evt/simple-web-server/service/mocks"
+	"github.com/evt/rest-api-example/lib/types"
+	"github.com/evt/rest-api-example/lib/validator"
+	"github.com/evt/rest-api-example/model"
+	"github.com/evt/rest-api-example/service/mocks"
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"

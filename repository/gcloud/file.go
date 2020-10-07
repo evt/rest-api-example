@@ -7,8 +7,8 @@ import (
 	"io"
 
 	"cloud.google.com/go/storage"
-	"github.com/evt/simple-web-server/gcloud"
-	"github.com/evt/simple-web-server/model"
+	"github.com/evt/rest-api-example/gcloud"
+	"github.com/evt/rest-api-example/model"
 	"github.com/pkg/errors"
 )
 

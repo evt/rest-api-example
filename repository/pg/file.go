@@ -5,8 +5,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/evt/simple-web-server/db"
-	"github.com/evt/simple-web-server/model"
+	"github.com/evt/rest-api-example/db"
+	"github.com/evt/rest-api-example/model"
 	"github.com/go-pg/pg/v10"
 )
 

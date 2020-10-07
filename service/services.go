@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/evt/simple-web-server/model"
+	"github.com/evt/rest-api-example/model"
 	"github.com/google/uuid"
 )
 

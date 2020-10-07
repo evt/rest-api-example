@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/evt/simple-web-server/lib/types"
+	"github.com/evt/rest-api-example/lib/types"
 	"github.com/labstack/echo/v4"
 )
 

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/evt/simple-web-server/lib/types"
-	"github.com/evt/simple-web-server/model"
-	"github.com/evt/simple-web-server/repository"
+	"github.com/evt/rest-api-example/lib/types"
+	"github.com/evt/rest-api-example/model"
+	"github.com/evt/rest-api-example/repository"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )

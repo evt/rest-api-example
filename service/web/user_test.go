@@ -2,11 +2,12 @@ package web
 
 import (
 	"context"
-	"github.com/evt/simple-web-server/model"
-	"github.com/google/uuid"
 	"testing"
 
-	"github.com/evt/simple-web-server/repository/mocks"
+	"github.com/evt/rest-api-example/model"
+	"github.com/google/uuid"
+
+	"github.com/evt/rest-api-example/repository/mocks"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
