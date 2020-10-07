@@ -19,7 +19,10 @@ import (
 	"github.com/evt/rest-api-example/lib/validator"
 	"github.com/evt/rest-api-example/logger"
 	"github.com/evt/rest-api-example/pgdb"
+
+	mysqlrepo "github.com/evt/rest-api-example/repository/mysql"
 	pgrepo "github.com/evt/rest-api-example/repository/pg"
+
 	"github.com/evt/rest-api-example/service/web"
 
 	"github.com/labstack/echo/v4"
@@ -56,21 +59,25 @@ func run() error {
 	}
 
 	// Run Postgres migrations
-	log.Println("Running PostgreSQL migrations...")
-	if err := runPgMigrations(cfg); err != nil {
-		log.Fatal(err)
+	if pgDB != nil {
+		log.Println("Running PostgreSQL migrations...")
+		if err := runPgMigrations(cfg); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	// connect to MySQL
-	_, err = mysqldb.Dial(cfg)
+	mysqlDB, err := mysqldb.Dial(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Run MySQL migrations
-	log.Println("Running MySQL migrations...")
-	if err := runMysqlMigrations(cfg); err != nil {
-		log.Fatal(err)
+	if mysqlDB != nil {
+		log.Println("Running MySQL migrations...")
+		if err := runMysqlMigrations(cfg); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	// connect to google cloud
@@ -79,15 +86,42 @@ func run() error {
 		log.Fatal(err)
 	}
 
-	// Init repositories
-	userRepo := pgrepo.NewUserRepo(pgDB)
-	fileRepo := pgrepo.NewFileRepo(pgDB)
+	// Init Postgres repositories
+	var (
+		userPgRepo *pgrepo.UserPgRepo
+		filePgRepo *pgrepo.FilePgRepo
+	)
+	if pgDB != nil {
+		userPgRepo = pgrepo.NewUserRepo(pgDB)
+		filePgRepo = pgrepo.NewFileRepo(pgDB)
+	}
+	// Init MySQL repositories
+	var (
+		userMysqlRepo *mysqlrepo.UserMysqlRepo
+		//fileMysqlRepo *mysqlrepo.FileMysqlRepo
+	)
+	if mysqlDB != nil {
+		userMysqlRepo = mysqlrepo.NewUserRepo(mysqlDB)
+		//fileMysqlRepo = mysqlrepo.NewFileRepo(mysqlDB)
+	}
 	fileContentRepo := gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
 
 	// Init services
-	userService := web.NewUserWebService(ctx, userRepo)
-	fileService := web.NewFileWebService(ctx, fileRepo)
-	fileContentService := gcloudService.NewFileContentService(ctx, fileRepo, fileContentRepo)
+	var (
+		userService        *web.UserWebService
+		fileService        *web.FileWebService
+		fileContentService *gcloudService.FileContentService
+	)
+	if pgDB != nil {
+		userService = web.NewUserWebService(ctx, userPgRepo)
+		fileService = web.NewFileWebService(ctx, filePgRepo)
+		fileContentService = gcloudService.NewFileContentService(ctx, filePgRepo, fileContentRepo)
+	}
+	if mysqlDB != nil {
+		userService = web.NewUserWebService(ctx, userMysqlRepo)
+		//fileService = web.NewFileWebService(ctx, fileMysqlRepo)
+		fileContentService = gcloudService.NewFileContentService(ctx, filePgRepo, fileContentRepo)
+	}
 
 	// Init controllers
 	userController := controller.NewUsers(ctx, userService, l)
@@ -134,7 +168,7 @@ func run() error {
 // runPgMigrations runs Postgres migrations
 func runPgMigrations(cfg *config.Config) error {
 	if cfg.PgMigrationsPath == "" {
-		return errors.New("No cfg.PgMigrationsPath provided")
+		return nil
 	}
 	if cfg.PgURL == "" {
 		return errors.New("No cfg.PgURL provided")
@@ -155,7 +189,7 @@ func runPgMigrations(cfg *config.Config) error {
 // runMysqlMigrations runs MySQL migrations
 func runMysqlMigrations(cfg *config.Config) error {
 	if cfg.MysqlMigrationsPath == "" {
-		return errors.New("No cfg.MysqlMigrationsPath provided")
+		return nil
 	}
 	if cfg.MysqlDB == "" {
 		return errors.New("No cfg.MysqlDB provided")

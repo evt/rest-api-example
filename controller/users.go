@@ -48,7 +48,7 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrBadRequest:
-			return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not create user"))
+			return echo.NewHTTPError(http.StatusBadRequest, err)
 		default:
 			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not create user"))
 		}
@@ -67,7 +67,14 @@ func (ctr *UserController) Get(ctx echo.Context) error {
 	}
 	user, err := ctr.userSvc.GetUser(ctx.Request().Context(), userID)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not get user"))
+		switch {
+		case errors.Cause(err) == types.ErrNotFound:
+			return echo.NewHTTPError(http.StatusNotFound, err)
+		case errors.Cause(err) == types.ErrBadRequest:
+			return echo.NewHTTPError(http.StatusBadRequest, err)
+		default:
+			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not get user"))
+		}
 	}
 	return ctx.JSON(http.StatusOK, user)
 }
@@ -82,7 +89,9 @@ func (ctr *UserController) Delete(ctx echo.Context) error {
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
-			return echo.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "could not delete user"))
+			return echo.NewHTTPError(http.StatusNotFound, err)
+		case errors.Cause(err) == types.ErrBadRequest:
+			return echo.NewHTTPError(http.StatusBadRequest, err)
 		default:
 			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not delete user"))
 		}

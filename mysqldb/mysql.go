@@ -21,5 +21,10 @@ func Dial(cfg *config.Config) (*MySQL, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Print SQL statements in debug mode
+	if cfg.LogLevel == "debug" {
+		db.LogMode(true)
+		//db.SetLogger(logger.Get())
+	}
 	return &MySQL{db}, nil
 }

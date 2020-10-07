@@ -1,6 +1,6 @@
 CREATE TABLE files (
-	id binary(16) NOT NULL PRIMARY KEY,
+	id char(36) NOT NULL PRIMARY KEY,
 	filename text NOT NULL,
-	created timestamp default current_timestamp
+	created_at timestamp default current_timestamp
 );
 

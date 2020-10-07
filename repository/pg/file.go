@@ -20,7 +20,7 @@ func NewFileRepo(db *pgdb.PgDB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 
-// Get retrieves file from Postgres
+// Get retrieves file from MySQL
 func (repo *FilePgRepo) Get(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
 	user := &model.DBFile{}
 	err := repo.db.Model(user).

@@ -6,8 +6,8 @@ export GOOGLE_APPLICATION_CREDENTIALS=./serviceaccount.json
 export GC_BUCKET=my-cool-bucket
 
 # Postgres settings
-export PG_URL=postgres://postgres:postgres@localhost/test?sslmode=disable
-export PG_MIGRATIONS_PATH=file://../../pgdb/migrations
+#export PG_URL=postgres://postgres:postgres@localhost/test?sslmode=disable
+#export PG_MIGRATIONS_PATH=file://../../pgdb/migrations
 
 # MySQL settings
 export MYSQL_ADDR=127.0.0.1:3306

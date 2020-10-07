@@ -1,7 +1,7 @@
 CREATE TABLE users (
-	id binary(16) NOT NULL primary key,
+	id char(36) NOT NULL primary key,
 	firstname text NOT NULL,
 	lastname text NOT NULL,
-	created timestamp default current_timestamp
+	created_at timestamp default current_timestamp
 );
 

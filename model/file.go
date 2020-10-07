@@ -8,34 +8,34 @@ import (
 
 // File holds file metadata as a JSON
 type File struct {
-	ID       uuid.UUID `json:"id"`
-	Filename string    `json:"filename" validate:"required"`
-	Created  time.Time `json:"created"`
+	ID        uuid.UUID `json:"id"`
+	Filename  string    `json:"filename" validate:"required"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 // ToDB converts File to DBFile
 func (file *File) ToDB() *DBFile {
 	return &DBFile{
-		ID:       file.ID,
-		Filename: file.Filename,
-		Created:  file.Created,
+		ID:        file.ID,
+		Filename:  file.Filename,
+		CreatedAt: file.CreatedAt,
 	}
 }
 
 // DBFile is a file in Postgres
 type DBFile struct {
-	tableName   struct{}  `pgdb:"files"`
-	ID          uuid.UUID `pgdb:"id,notnull,pk"`
-	Filename    string    `pgdb:"filename,notnull"`
-	ContentType string    `pgdb:"-"`
-	Created     time.Time `pgdb:"created,notnull"`
+	tableName   struct{}  `pg:"files"`
+	ID          uuid.UUID `pg:"id,notnull,pk"`
+	Filename    string    `pg:"filename,notnull"`
+	ContentType string    `pg:"-"`
+	CreatedAt   time.Time `pg:"created_at,notnull"`
 }
 
 // ToWeb converts DBFile to File
 func (dbFile *DBFile) ToWeb() *File {
 	return &File{
-		ID:       dbFile.ID,
-		Filename: dbFile.Filename,
-		Created:  dbFile.Created,
+		ID:        dbFile.ID,
+		Filename:  dbFile.Filename,
+		CreatedAt: dbFile.CreatedAt,
 	}
 }
