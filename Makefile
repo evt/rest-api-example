@@ -2,9 +2,6 @@ default: all
 
 all: test
 
-test:
-	go test -cover ./...
-
 mocks:
 	cd ./repository/mocks/; go generate;
 	cd ./service/mocks/; go generate;
