@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/evt/rest-api-example/mysqldb"
+	echoLog "github.com/labstack/gommon/log"
 
 	"github.com/evt/rest-api-example/gcloud"
 
@@ -98,11 +99,11 @@ func run() error {
 	// Init MySQL repositories
 	var (
 		userMysqlRepo *mysqlrepo.UserMysqlRepo
-		//fileMysqlRepo *mysqlrepo.FileMysqlRepo
+		fileMysqlRepo *mysqlrepo.FileMysqlRepo
 	)
 	if mysqlDB != nil {
 		userMysqlRepo = mysqlrepo.NewUserRepo(mysqlDB)
-		//fileMysqlRepo = mysqlrepo.NewFileRepo(mysqlDB)
+		fileMysqlRepo = mysqlrepo.NewFileRepo(mysqlDB)
 	}
 	fileContentRepo := gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
 
@@ -119,8 +120,8 @@ func run() error {
 	}
 	if mysqlDB != nil {
 		userService = web.NewUserWebService(ctx, userMysqlRepo)
-		//fileService = web.NewFileWebService(ctx, fileMysqlRepo)
-		fileContentService = gcloudService.NewFileContentService(ctx, filePgRepo, fileContentRepo)
+		fileService = web.NewFileWebService(ctx, fileMysqlRepo)
+		fileContentService = gcloudService.NewFileContentService(ctx, fileMysqlRepo, fileContentRepo)
 	}
 
 	// Init controllers
@@ -131,6 +132,12 @@ func run() error {
 	e := echo.New()
 	e.Validator = validator.NewValidator()
 	e.HTTPErrorHandler = libError.Error
+	// Disable Echo JSON logger in debug mode
+	if cfg.LogLevel == "debug" {
+		if l, ok := e.Logger.(*echoLog.Logger); ok {
+			l.SetHeader("${time_rfc3339} | ${level} | ${short_file}:${line}")
+		}
+	}
 
 	// Middleware
 	e.Use(middleware.Logger())

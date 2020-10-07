@@ -20,10 +20,10 @@ type UserRepo interface {
 // FileRepo is a repository for files
 //go:generate mockery --dir . --name FileRepo --output ./mocks
 type FileRepo interface {
-	Get(context.Context, uuid.UUID) (*model.DBFile, error)
-	Create(context.Context, *model.DBFile) (*model.DBFile, error)
-	Update(context.Context, *model.DBFile) (*model.DBFile, error)
-	Delete(context.Context, uuid.UUID) error
+	GetFile(context.Context, uuid.UUID) (*model.DBFile, error)
+	CreateFile(context.Context, *model.DBFile) (*model.DBFile, error)
+	UpdateFile(context.Context, *model.DBFile) (*model.DBFile, error)
+	DeleteFile(context.Context, uuid.UUID) error
 }
 
 // FileContentRepo is a repository for file contennt

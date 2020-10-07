@@ -20,10 +20,10 @@ func NewFileRepo(db *pgdb.PgDB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 
-// Get retrieves file from MySQL
-func (repo *FilePgRepo) Get(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
-	user := &model.DBFile{}
-	err := repo.db.Model(user).
+// GetFile retrieves file from MySQL
+func (repo *FilePgRepo) GetFile(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
+	file := &model.DBFile{}
+	err := repo.db.Model(file).
 		Where("id = ?", id).
 		Select()
 	if err != nil {
@@ -32,23 +32,23 @@ func (repo *FilePgRepo) Get(ctx context.Context, id uuid.UUID) (*model.DBFile, e
 		}
 		return nil, err
 	}
-	return user, nil
+	return file, nil
 }
 
-// Create creates file in Postgres
-func (repo *FilePgRepo) Create(ctx context.Context, user *model.DBFile) (*model.DBFile, error) {
-	_, err := repo.db.Model(user).
+// CreateFile creates file in Postgres
+func (repo *FilePgRepo) CreateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+	_, err := repo.db.Model(file).
 		Returning("*").
 		Insert()
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return file, nil
 }
 
-// Update updates file in Postgres
-func (repo *FilePgRepo) Update(ctx context.Context, user *model.DBFile) (*model.DBFile, error) {
-	_, err := repo.db.Model(user).
+// UpdateFile updates file in Postgres
+func (repo *FilePgRepo) UpdateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+	_, err := repo.db.Model(file).
 		WherePK().
 		Returning("*").
 		Update()
@@ -59,11 +59,11 @@ func (repo *FilePgRepo) Update(ctx context.Context, user *model.DBFile) (*model.
 		return nil, err
 	}
 
-	return user, nil
+	return file, nil
 }
 
-// Delete deletes file in Postgres
-func (repo *FilePgRepo) Delete(ctx context.Context, id uuid.UUID) error {
+// DeleteFile deletes file in Postgres
+func (repo *FilePgRepo) DeleteFile(ctx context.Context, id uuid.UUID) error {
 	_, err := repo.db.Model((*model.DBFile)(nil)).
 		Where("id = ?", id).
 		Delete()

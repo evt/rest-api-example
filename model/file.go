@@ -27,8 +27,13 @@ type DBFile struct {
 	tableName   struct{}  `pg:"files"`
 	ID          uuid.UUID `pg:"id,notnull,pk"`
 	Filename    string    `pg:"filename,notnull"`
-	ContentType string    `pg:"-"`
+	ContentType string    `pg:"-" gorm:"-"`
 	CreatedAt   time.Time `pg:"created_at,notnull"`
+}
+
+// TableName overrides default table name for gorm
+func (DBFile) TableName() string {
+	return "files"
 }
 
 // ToWeb converts DBFile to File

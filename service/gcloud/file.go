@@ -34,7 +34,7 @@ func (svc *FileContentService) Upload(ctx context.Context, fileID uuid.UUID, fil
 		return errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.fileRepo.Get(ctx, fileID)
+	fileDB, err := svc.fileRepo.GetFile(ctx, fileID)
 	if err != nil {
 		return errors.Wrap(err, "svc.fileRepo.GetFile")
 	}
@@ -56,7 +56,7 @@ func (svc *FileContentService) Download(ctx context.Context, fileID uuid.UUID) (
 		return nil, nil, errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.fileRepo.Get(ctx, fileID)
+	fileDB, err := svc.fileRepo.GetFile(ctx, fileID)
 	if err != nil {
 		return nil, nil, errors.Wrap(err, "svc.fileRepo.GetFile")
 	}
