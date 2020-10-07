@@ -32,7 +32,7 @@ func (svc *UserWebService) GetUser(ctx context.Context, userID uuid.UUID) (*mode
 		return nil, errors.Wrap(err, "svc.user.GetUser")
 	}
 	if userDB == nil {
-		return nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("User '%s' not found", userID.String()))
+		return nil, errors.Wrap(types.ErrNotFound, fmt.Sprintf("User '%s' not found", userID.String()))
 	}
 
 	return userDB.ToWeb(), nil
@@ -63,7 +63,7 @@ func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) 
 		return nil, errors.Wrap(err, "svc.user.GetUser error")
 	}
 	if userDB == nil {
-		return nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("User '%s' not found", reqUser.ID.String()))
+		return nil, errors.Wrap(types.ErrNotFound, fmt.Sprintf("User '%s' not found", reqUser.ID.String()))
 	}
 
 	// update user

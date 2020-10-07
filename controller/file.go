@@ -51,6 +51,8 @@ func (ctr *FileController) Create(ctx echo.Context) error {
 	createdFile, err := ctr.fileSvc.CreateFile(ctx.Request().Context(), &file)
 	if err != nil {
 		switch {
+		case errors.Cause(err) == types.ErrNotFound:
+			return echo.NewHTTPError(http.StatusNotFound, err)
 		case errors.Cause(err) == types.ErrBadRequest:
 			return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not create file"))
 		default:
@@ -71,7 +73,14 @@ func (ctr *FileController) Get(ctx echo.Context) error {
 	}
 	file, err := ctr.fileSvc.GetFile(ctx.Request().Context(), fileID)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not get file"))
+		switch {
+		case errors.Cause(err) == types.ErrNotFound:
+			return echo.NewHTTPError(http.StatusNotFound, err)
+		case errors.Cause(err) == types.ErrBadRequest:
+			return echo.NewHTTPError(http.StatusBadRequest, err)
+		default:
+			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not get file"))
+		}
 	}
 	return ctx.JSON(http.StatusOK, file)
 }
@@ -87,6 +96,8 @@ func (ctr *FileController) Delete(ctx echo.Context) error {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
 			return echo.NewHTTPError(http.StatusNotFound, errors.Wrap(err, "could not delete file"))
+		case errors.Cause(err) == types.ErrBadRequest:
+			return echo.NewHTTPError(http.StatusBadRequest, err)
 		default:
 			return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not delete file"))
 		}

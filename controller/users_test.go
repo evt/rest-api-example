@@ -61,7 +61,7 @@ func TestCreateUser(t *testing.T) {
 				svc.On("CreateUser", ctx, testUser).Return(nil, types.ErrBadRequest)
 			},
 			input: `{ "firstname": "Eugene", "lastname": "Toropov" }`,
-			err:   errors.New("code=400, message=could not create user: bad request"),
+			err:   errors.New("code=400, message=bad request"),
 			code:  http.StatusBadRequest,
 		},
 	}
