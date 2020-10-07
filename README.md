@@ -11,6 +11,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/evt/rest-api-example)
 ![GitHub last commit](https://img.shields.io/github/last-commit/evt/rest-api-example)
 ![GitHub contributors](https://img.shields.io/github/contributors/evt/rest-api-example)
+![Simply the best ;)](https://img.shields.io/badge/simply-the%20best%20;)-orange)
 
 <img align="right" width="50%" src="./images/big-gopher.jpg">
 
