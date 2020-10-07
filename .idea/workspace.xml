@@ -23,15 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9303c3c6-01a1-44ac-9f78-b22c90c71860" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/pg.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/pg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/gcloud/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/gcloud/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/pg/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/pg/file.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/pg/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/pg/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/api/rundev.sh" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/rundev.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
