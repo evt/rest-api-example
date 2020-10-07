@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"net/http"
+	"time"
 
 	"github.com/evt/rest-api-example/gcloud"
 
@@ -102,7 +104,12 @@ func run() error {
 	fileRoutes.GET("/:id/content", fileController.Download)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
+	s := &http.Server{
+		Addr:         cfg.HTTPAddr,
+		ReadTimeout:  30 * time.Minute,
+		WriteTimeout: 30 * time.Minute,
+	}
+	e.Logger.Fatal(e.StartServer(s))
 
 	return nil
 }
