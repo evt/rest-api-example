@@ -4,6 +4,7 @@
 [![Codacy Grade](https://img.shields.io/codacy/grade/c9467ed47e064b1981e53862d0286d65)
 ![Github Repository Size](https://img.shields.io/github/repo-size/evt/rest-api-example)
 ![Github Open Issues](https://img.shields.io/github/issues/evt/rest-api-example)
+![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
 # REST API Server example
 Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Developer position to create a simple Golang REST API server doing something useful (anything useful).
