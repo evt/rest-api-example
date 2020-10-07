@@ -14,8 +14,6 @@ Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Dev
 
 I won't show his code here :) But as a result I realized I don't have my answer to this question :) So, here it is!
 
-<img src="./images/make-run.png">
-
 This is Golang REST API server example including the following features:
 *   based on high performance, extensible, minimalist Go web framework - Echo - <https://echo.labstack.com> 
 *   made with Clean Architecture in mind (controller -> service -> repository)
@@ -25,3 +23,5 @@ This is Golang REST API server example including the following features:
 *   config based on envconfig (<https://github.com/kelseyhightower/envconfig>)
 *   made relatively fast :) but with :heart: :)
 *   more details in my Youtube video that I'm going to make tomorrow :)
+
+<img src="./images/make-run.png">
