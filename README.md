@@ -8,6 +8,8 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/evt/rest-api-example)
+![GitHub last commit](https://img.shields.io/github/last-commit/evt/rest-api-example)
+![GitHub contributors](https://img.shields.io/github/contributors/evt/rest-api-example)
 
 <img align="right" width="50%" src="./images/big-gopher.jpg">
 
