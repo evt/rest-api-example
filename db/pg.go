@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Postgres timeout
+// Timeout is a Postgres timeout
 const Timeout = 5
 
 // PgDB is a shortcut structure to a Postgres DB

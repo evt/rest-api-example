@@ -10,12 +10,12 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
-// UserPgRepo
+// UserPgRepo ...
 type UserPgRepo struct {
 	db *db.PgDB
 }
 
-// NewUserRepo
+// NewUserRepo ...
 func NewUserRepo(db *db.PgDB) *UserPgRepo {
 	return &UserPgRepo{db: db}
 }

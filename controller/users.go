@@ -16,7 +16,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Users controller
+// UserController ...
 type UserController struct {
 	ctx     context.Context
 	userSvc service.UserService

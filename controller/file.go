@@ -18,7 +18,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Files controller
+// FileController ...
 type FileController struct {
 	ctx            context.Context
 	fileSvc        service.FileService

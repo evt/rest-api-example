@@ -12,13 +12,13 @@ import (
 	"github.com/pkg/errors"
 )
 
-// GoogleCloudFileRepo
+// GoogleCloudFileRepo ...
 type GoogleCloudFileRepo struct {
 	storage *gcloud.Storage
 	bucket  string
 }
 
-// NewFileRepo
+// NewFileRepo ...
 func NewFileRepo(storage *gcloud.Storage, bucket string) *GoogleCloudFileRepo {
 	return &GoogleCloudFileRepo{storage: storage, bucket: bucket}
 }
