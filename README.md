@@ -7,7 +7,8 @@
 ![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
 
-![](images/big-gopher.jpg)
+<img align="right" width="50%" src="./images/big-gopher.jpg">
+
 # REST API Server example
 Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Developer position to create a simple Golang REST API server doing something useful (anything useful).
 
