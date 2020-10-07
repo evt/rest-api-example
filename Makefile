@@ -1,7 +1,3 @@
-default: all
-
-all: test
-
 mocks:
 	cd ./repository/mocks/; go generate;
 	cd ./service/mocks/; go generate;
