@@ -39,7 +39,7 @@ func TestGetUser(t *testing.T) {
 				userRepo.On("GetUser", context.Background(), input.ID).Return(nil, nil)
 			},
 			input: input,
-			err:   errors.New("User '7a2f922c-073a-11eb-adc1-0242ac120002' not found: bad request"),
+			err:   errors.New("User '7a2f922c-073a-11eb-adc1-0242ac120002' not found: resource not found"),
 		},
 		{
 			name: "repository error",
