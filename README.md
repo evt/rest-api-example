@@ -1,5 +1,3 @@
-![](images/big-gopher.jpg)
-
 ![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
 ![Repository Top Language](https://img.shields.io/github/languages/top/evt/rest-api-example)
 ![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/evt/rest-api-example/main)
@@ -8,6 +6,8 @@
 ![Github Open Issues](https://img.shields.io/github/issues/evt/rest-api-example)
 ![Lines of code](https://img.shields.io/tokei/lines/github/evt/rest-api-example)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
+
+![](images/big-gopher.jpg)
 # REST API Server example
 Ladies and gentlemen, once upon a time I asked a candidate for Golang Junior Developer position to create a simple Golang REST API server doing something useful (anything useful).
 
