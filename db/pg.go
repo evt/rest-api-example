@@ -5,7 +5,6 @@ import (
 
 	"github.com/evt/rest-api-example/config"
 	"github.com/go-pg/pg/v10"
-	_ "github.com/lib/pq"
 	"github.com/pkg/errors"
 )
 
