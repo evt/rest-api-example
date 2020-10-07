@@ -1,3 +1,5 @@
+![](images/big-gopher.jpg)
+
 ![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
 ![Repository Top Language](https://img.shields.io/github/languages/top/evt/rest-api-example)
 ![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/evt/rest-api-example/main)
