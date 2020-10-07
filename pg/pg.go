@@ -1,4 +1,4 @@
-package db
+package pg
 
 import (
 	"time"

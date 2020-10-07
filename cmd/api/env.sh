@@ -7,7 +7,7 @@ export GC_BUCKET=my-cool-bucket
 
 # Local postgres
 export PG_URL=postgres://postgres:postgres@localhost/test?sslmode=disable
-export PG_MIGRATIONS_PATH=file://../../db//migrations
+export PG_MIGRATIONS_PATH=file://../../pg/migrations
 
 # Logger settings
 export LOG_LEVEL=debug

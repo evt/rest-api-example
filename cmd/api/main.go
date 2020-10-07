@@ -12,11 +12,11 @@ import (
 
 	"github.com/evt/rest-api-example/config"
 	"github.com/evt/rest-api-example/controller"
-	"github.com/evt/rest-api-example/db"
 	libError "github.com/evt/rest-api-example/lib/error"
 	"github.com/evt/rest-api-example/lib/validator"
 	"github.com/evt/rest-api-example/logger"
-	"github.com/evt/rest-api-example/repository/pg"
+	"github.com/evt/rest-api-example/pg"
+	pgrepo "github.com/evt/rest-api-example/repository/pg"
 	"github.com/evt/rest-api-example/service/web"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -45,7 +45,7 @@ func run() error {
 	l := logger.Get()
 
 	// connect to Postgres
-	pgDB, err := db.Dial(cfg)
+	pgDB, err := pg.Dial(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,8 +63,8 @@ func run() error {
 	}
 
 	// Init repositories
-	userRepo := pg.NewUserRepo(pgDB)
-	fileRepo := pg.NewFileRepo(pgDB)
+	userRepo := pgrepo.NewUserRepo(pgDB)
+	fileRepo := pgrepo.NewFileRepo(pgDB)
 	fileContentRepo := gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
 
 	// Init services

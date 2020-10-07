@@ -5,18 +5,18 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/evt/rest-api-example/db"
 	"github.com/evt/rest-api-example/model"
-	"github.com/go-pg/pg/v10"
+	"github.com/evt/rest-api-example/pg"
+	gopg "github.com/go-pg/pg/v10"
 )
 
 // UserPgRepo ...
 type UserPgRepo struct {
-	db *db.PgDB
+	db *pg.PgDB
 }
 
 // NewUserRepo ...
-func NewUserRepo(db *db.PgDB) *UserPgRepo {
+func NewUserRepo(db *pg.PgDB) *UserPgRepo {
 	return &UserPgRepo{db: db}
 }
 
@@ -27,7 +27,7 @@ func (repo *UserPgRepo) GetUser(ctx context.Context, id uuid.UUID) (*model.DBUse
 		Where("id = ?", id).
 		Select()
 	if err != nil {
-		if err == pg.ErrNoRows { //not found
+		if err == gopg.ErrNoRows { //not found
 			return nil, nil
 		}
 		return nil, err
@@ -53,7 +53,7 @@ func (repo *UserPgRepo) UpdateUser(ctx context.Context, user *model.DBUser) (*mo
 		Returning("*").
 		Update()
 	if err != nil {
-		if err == pg.ErrNoRows { //not found
+		if err == gopg.ErrNoRows { //not found
 			return nil, nil
 		}
 		return nil, err
@@ -68,7 +68,7 @@ func (repo *UserPgRepo) DeleteUser(ctx context.Context, id uuid.UUID) error {
 		Where("id = ?", id).
 		Delete()
 	if err != nil {
-		if err == pg.ErrNoRows {
+		if err == gopg.ErrNoRows {
 			return nil
 		}
 		return err
