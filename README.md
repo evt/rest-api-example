@@ -1,6 +1,7 @@
 ![Github CI/CD](https://img.shields.io/github/workflow/status/evt/rest-api-example/Go)
 ![Repository Top Language](https://img.shields.io/github/languages/top/evt/rest-api-example)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/quality/g/evt/rest-api-example/main)
+[![Codacy Grade](https://img.shields.io/codacy/grade/c9467ed47e064b1981e53862d0286d65)
 ![Github Repository Size](https://img.shields.io/github/repo-size/evt/rest-api-example)
 ![Github Open Issues](https://img.shields.io/github/issues/evt/rest-api-example)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE.txt)
