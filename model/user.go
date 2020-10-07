@@ -26,11 +26,11 @@ func (user *User) ToDB() *DBUser {
 
 // DBUser is a Postgres user
 type DBUser struct {
-	tableName struct{}  `pg:"users"`
-	ID        uuid.UUID `pg:"id,notnull,pk"`
-	Firstname string    `pg:"firstname,notnull"`
-	Lastname  string    `pg:"lastname,notnull"`
-	Created   time.Time `pg:"created,notnull"`
+	tableName struct{}  `pgdb:"users"`
+	ID        uuid.UUID `pgdb:"id,notnull,pk"`
+	Firstname string    `pgdb:"firstname,notnull"`
+	Lastname  string    `pgdb:"lastname,notnull"`
+	Created   time.Time `pgdb:"created,notnull"`
 }
 
 // ToWeb converts DBUser to User

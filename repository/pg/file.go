@@ -6,17 +6,17 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/evt/rest-api-example/model"
-	"github.com/evt/rest-api-example/pg"
-	gopg "github.com/go-pg/pg/v10"
+	"github.com/evt/rest-api-example/pgdb"
+	"github.com/go-pg/pg/v10"
 )
 
 // FilePgRepo ...
 type FilePgRepo struct {
-	db *pg.PgDB
+	db *pgdb.PgDB
 }
 
 // NewFileRepo ...
-func NewFileRepo(db *pg.PgDB) *FilePgRepo {
+func NewFileRepo(db *pgdb.PgDB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 
@@ -27,7 +27,7 @@ func (repo *FilePgRepo) Get(ctx context.Context, id uuid.UUID) (*model.DBFile, e
 		Where("id = ?", id).
 		Select()
 	if err != nil {
-		if err == gopg.ErrNoRows { //not found
+		if err == pg.ErrNoRows { //not found
 			return nil, nil
 		}
 		return nil, err
@@ -53,7 +53,7 @@ func (repo *FilePgRepo) Update(ctx context.Context, user *model.DBFile) (*model.
 		Returning("*").
 		Update()
 	if err != nil {
-		if err == gopg.ErrNoRows { //not found
+		if err == pg.ErrNoRows { //not found
 			return nil, nil
 		}
 		return nil, err
@@ -68,7 +68,7 @@ func (repo *FilePgRepo) Delete(ctx context.Context, id uuid.UUID) error {
 		Where("id = ?", id).
 		Delete()
 	if err != nil {
-		if err == gopg.ErrNoRows {
+		if err == pg.ErrNoRows {
 			return nil
 		}
 		return err

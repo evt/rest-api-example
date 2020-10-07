@@ -2,8 +2,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/evt/rest-api-example/mysqldb"
 
 	"github.com/evt/rest-api-example/gcloud"
 
@@ -15,14 +18,16 @@ import (
 	libError "github.com/evt/rest-api-example/lib/error"
 	"github.com/evt/rest-api-example/lib/validator"
 	"github.com/evt/rest-api-example/logger"
-	"github.com/evt/rest-api-example/pg"
+	"github.com/evt/rest-api-example/pgdb"
 	pgrepo "github.com/evt/rest-api-example/repository/pg"
 	"github.com/evt/rest-api-example/service/web"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/pkg/errors"
 
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 
@@ -45,14 +50,26 @@ func run() error {
 	l := logger.Get()
 
 	// connect to Postgres
-	pgDB, err := pg.Dial(cfg)
+	pgDB, err := pgdb.Dial(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Run Postgres migrations
 	log.Println("Running PostgreSQL migrations...")
-	if err := runMigrations(cfg); err != nil {
+	if err := runPgMigrations(cfg); err != nil {
+		log.Fatal(err)
+	}
+
+	// connect to MySQL
+	_, err = mysqldb.Dial(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Run MySQL migrations
+	log.Println("Running MySQL migrations...")
+	if err := runMysqlMigrations(cfg); err != nil {
 		log.Fatal(err)
 	}
 
@@ -114,8 +131,8 @@ func run() error {
 	return nil
 }
 
-// runMigrations runs Postgres migrations
-func runMigrations(cfg *config.Config) error {
+// runPgMigrations runs Postgres migrations
+func runPgMigrations(cfg *config.Config) error {
 	if cfg.PgMigrationsPath == "" {
 		return errors.New("No cfg.PgMigrationsPath provided")
 	}
@@ -125,6 +142,27 @@ func runMigrations(cfg *config.Config) error {
 	m, err := migrate.New(
 		cfg.PgMigrationsPath,
 		cfg.PgURL,
+	)
+	if err != nil {
+		return err
+	}
+	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
+		return err
+	}
+	return nil
+}
+
+// runMysqlMigrations runs MySQL migrations
+func runMysqlMigrations(cfg *config.Config) error {
+	if cfg.MysqlMigrationsPath == "" {
+		return errors.New("No cfg.MysqlMigrationsPath provided")
+	}
+	if cfg.MysqlDB == "" {
+		return errors.New("No cfg.MysqlDB provided")
+	}
+	m, err := migrate.New(
+		cfg.MysqlMigrationsPath,
+		fmt.Sprintf("mysql://%s:%s@tcp(%s)/%s", cfg.MysqlUser, cfg.MysqlPassword, cfg.MysqlAddr, cfg.MysqlDB),
 	)
 	if err != nil {
 		return err

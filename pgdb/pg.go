@@ -1,11 +1,10 @@
-package pg
+package pgdb
 
 import (
 	"time"
 
 	"github.com/evt/rest-api-example/config"
 	"github.com/go-pg/pg/v10"
-	"github.com/pkg/errors"
 )
 
 // Timeout is a Postgres timeout
@@ -23,7 +22,7 @@ func Dial(cfg *config.Config) (*PgDB, error) {
 	var err error
 
 	if cfg.PgURL == "" {
-		return nil, errors.New("No Postgres connection string (PG_URL) provided")
+		return nil, nil
 	}
 	pgOpts, err = pg.ParseURL(cfg.PgURL)
 	if err != nil {
