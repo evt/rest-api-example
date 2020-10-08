@@ -6,7 +6,7 @@ import (
 
 	"github.com/evt/rest-api-example/lib/types"
 	"github.com/evt/rest-api-example/model"
-	"github.com/evt/rest-api-example/repository"
+	"github.com/evt/rest-api-example/store"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
@@ -14,11 +14,11 @@ import (
 // FileWebService ...
 type FileWebService struct {
 	ctx   context.Context
-	store *repository.Store
+	store *store.Store
 }
 
 // NewFileWebService creates a new file web service
-func NewFileWebService(ctx context.Context, store *repository.Store) *FileWebService {
+func NewFileWebService(ctx context.Context, store *store.Store) *FileWebService {
 	return &FileWebService{
 		ctx:   ctx,
 		store: store,

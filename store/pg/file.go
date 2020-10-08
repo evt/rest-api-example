@@ -6,17 +6,16 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/evt/rest-api-example/model"
-	"github.com/evt/rest-api-example/pgdb"
 	"github.com/go-pg/pg/v10"
 )
 
 // FilePgRepo ...
 type FilePgRepo struct {
-	db *pgdb.PgDB
+	db *PgDB
 }
 
 // NewFileRepo ...
-func NewFileRepo(db *pgdb.PgDB) *FilePgRepo {
+func NewFileRepo(db *PgDB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 

@@ -1,4 +1,4 @@
-package pgdb
+package pg
 
 import (
 	"time"

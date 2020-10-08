@@ -1,4 +1,4 @@
-package repository
+package store
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/evt/rest-api-example/model"
 )
 
-// UserRepo is a repository for users
+// UserRepo is a store for users
 //go:generate mockery --dir . --name UserRepo --output ./mocks
 type UserRepo interface {
 	GetUser(context.Context, uuid.UUID) (*model.DBUser, error)
@@ -17,7 +17,7 @@ type UserRepo interface {
 	DeleteUser(context.Context, uuid.UUID) error
 }
 
-// FileRepo is a repository for files
+// FileRepo is a store for files
 //go:generate mockery --dir . --name FileRepo --output ./mocks
 type FileRepo interface {
 	GetFile(context.Context, uuid.UUID) (*model.DBFile, error)
@@ -26,7 +26,7 @@ type FileRepo interface {
 	DeleteFile(context.Context, uuid.UUID) error
 }
 
-// FileContentRepo is a repository for file contennt
+// FileContentRepo is a store for file contennt
 //go:generate mockery --dir . --name FileContentRepo --output ./mocks
 type FileContentRepo interface {
 	Upload(context.Context, *model.DBFile, []byte) error

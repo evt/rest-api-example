@@ -4,12 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/evt/rest-api-example/repository"
+	"github.com/evt/rest-api-example/store"
 
 	"github.com/evt/rest-api-example/model"
 	"github.com/google/uuid"
 
-	"github.com/evt/rest-api-example/repository/mocks"
+	"github.com/evt/rest-api-example/store/mocks"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
@@ -44,7 +44,7 @@ func TestGetUser(t *testing.T) {
 			err:   errors.New("User '7a2f922c-073a-11eb-adc1-0242ac120002' not found: resource not found"),
 		},
 		{
-			name: "repository error",
+			name: "store error",
 			expectations: func(userRepo *mocks.UserRepo) {
 				userRepo.On("GetUser", context.Background(), input.ID).Return(nil, errors.New("some error"))
 			},
@@ -58,7 +58,7 @@ func TestGetUser(t *testing.T) {
 		ctx := context.Background()
 
 		userRepo := &mocks.UserRepo{}
-		svc := NewUserWebService(context.Background(), &repository.Store{User: userRepo})
+		svc := NewUserWebService(context.Background(), &store.Store{User: userRepo})
 		test.expectations(userRepo)
 
 		_, err := svc.GetUser(ctx, test.input.ID)

@@ -6,7 +6,7 @@ import (
 
 	"github.com/evt/rest-api-example/lib/types"
 	"github.com/evt/rest-api-example/model"
-	"github.com/evt/rest-api-example/repository"
+	"github.com/evt/rest-api-example/store"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 )
@@ -14,11 +14,11 @@ import (
 // UserWebService ...
 type UserWebService struct {
 	ctx   context.Context
-	store *repository.Store
+	store *store.Store
 }
 
 // NewUserWebService creates a new user web service
-func NewUserWebService(ctx context.Context, store *repository.Store) *UserWebService {
+func NewUserWebService(ctx context.Context, store *store.Store) *UserWebService {
 	return &UserWebService{
 		ctx:   ctx,
 		store: store,

@@ -7,19 +7,18 @@ import (
 	"io"
 
 	"cloud.google.com/go/storage"
-	"github.com/evt/rest-api-example/gcloud"
 	"github.com/evt/rest-api-example/model"
 	"github.com/pkg/errors"
 )
 
 // GoogleCloudFileRepo ...
 type GoogleCloudFileRepo struct {
-	storage *gcloud.Storage
+	storage *GCloudStorage
 	bucket  string
 }
 
 // NewFileRepo ...
-func NewFileRepo(storage *gcloud.Storage, bucket string) *GoogleCloudFileRepo {
+func NewFileRepo(storage *GCloudStorage, bucket string) *GoogleCloudFileRepo {
 	return &GoogleCloudFileRepo{storage: storage, bucket: bucket}
 }
 

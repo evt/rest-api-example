@@ -6,8 +6,6 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/evt/rest-api-example/mysqldb"
-
 	"github.com/google/uuid"
 
 	"github.com/evt/rest-api-example/model"
@@ -15,11 +13,11 @@ import (
 
 // FileMysqlRepo ...
 type FileMysqlRepo struct {
-	db *mysqldb.MySQL
+	db *MySQL
 }
 
 // NewFileRepo ...
-func NewFileRepo(db *mysqldb.MySQL) *FileMysqlRepo {
+func NewFileRepo(db *MySQL) *FileMysqlRepo {
 	return &FileMysqlRepo{db: db}
 }
 

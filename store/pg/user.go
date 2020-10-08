@@ -6,17 +6,16 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/evt/rest-api-example/model"
-	"github.com/evt/rest-api-example/pgdb"
 	"github.com/go-pg/pg/v10"
 )
 
 // UserPgRepo ...
 type UserPgRepo struct {
-	db *pgdb.PgDB
+	db *PgDB
 }
 
 // NewUserRepo ...
-func NewUserRepo(db *pgdb.PgDB) *UserPgRepo {
+func NewUserRepo(db *PgDB) *UserPgRepo {
 	return &UserPgRepo{db: db}
 }
 
