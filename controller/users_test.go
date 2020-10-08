@@ -7,6 +7,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/evt/rest-api-example/service"
+
 	"github.com/evt/rest-api-example/logger"
 
 	"github.com/evt/rest-api-example/lib/types"
@@ -68,6 +70,7 @@ func TestCreateUser(t *testing.T) {
 
 	for _, test := range tests {
 		t.Logf("running %v", test.testName)
+
 		// initialize the echo context to use for the test
 		e := echo.New()
 		e.Validator = validator.NewValidator()
@@ -83,9 +86,10 @@ func TestCreateUser(t *testing.T) {
 
 		test.expectations(ctx.Request().Context(), svc)
 
-		d := &UserController{ctx.Request().Context(), svc, l}
+		d := &UserController{ctx.Request().Context(), &service.Manager{User: svc}, l}
 		err = d.Create(ctx)
 		assert.Equal(t, test.err == nil, err == nil)
+
 		if err != nil {
 			if test.err != nil {
 				assert.Equal(t, test.err.Error(), err.Error())

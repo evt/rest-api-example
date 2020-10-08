@@ -20,19 +20,17 @@ import (
 
 // FileController ...
 type FileController struct {
-	ctx            context.Context
-	fileSvc        service.FileService
-	fileContentSvc service.FileContentService
-	logger         *logger.Logger
+	ctx      context.Context
+	services *service.Manager
+	logger   *logger.Logger
 }
 
 // NewFiles creates a new file controller.
-func NewFiles(ctx context.Context, fileSvc service.FileService, fileContentSvc service.FileContentService, logger *logger.Logger) *FileController {
+func NewFiles(ctx context.Context, services *service.Manager, logger *logger.Logger) *FileController {
 	return &FileController{
-		ctx:            ctx,
-		fileSvc:        fileSvc,
-		fileContentSvc: fileContentSvc,
-		logger:         logger,
+		ctx:      ctx,
+		services: services,
+		logger:   logger,
 	}
 }
 
@@ -48,7 +46,7 @@ func (ctr *FileController) Create(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	createdFile, err := ctr.fileSvc.CreateFile(ctx.Request().Context(), &file)
+	createdFile, err := ctr.services.File.CreateFile(ctx.Request().Context(), &file)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -71,7 +69,7 @@ func (ctr *FileController) Get(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	file, err := ctr.fileSvc.GetFile(ctx.Request().Context(), fileID)
+	file, err := ctr.services.File.GetFile(ctx.Request().Context(), fileID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -91,7 +89,7 @@ func (ctr *FileController) Delete(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	err = ctr.fileSvc.DeleteFile(ctx.Request().Context(), fileID)
+	err = ctr.services.File.DeleteFile(ctx.Request().Context(), fileID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -120,7 +118,7 @@ func (ctr *FileController) Upload(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	err = ctr.fileContentSvc.Upload(ctx.Request().Context(), fileID, fileBody)
+	err = ctr.services.FileContent.Upload(ctx.Request().Context(), fileID, fileBody)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not upload file"))
 	}
@@ -134,7 +132,7 @@ func (ctr *FileController) Download(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	fileBody, dbFile, err := ctr.fileContentSvc.Download(ctx.Request().Context(), fileID)
+	fileBody, dbFile, err := ctr.services.FileContent.Download(ctx.Request().Context(), fileID)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, errors.Wrap(err, "could not download file content"))
 	}

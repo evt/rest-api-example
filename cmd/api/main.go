@@ -5,20 +5,17 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/evt/rest-api-example/service"
 	"github.com/evt/rest-api-example/store"
 	"github.com/pkg/errors"
 
 	echoLog "github.com/labstack/gommon/log"
-
-	gcloudService "github.com/evt/rest-api-example/service/gcloud"
 
 	"github.com/evt/rest-api-example/config"
 	"github.com/evt/rest-api-example/controller"
 	libError "github.com/evt/rest-api-example/lib/error"
 	"github.com/evt/rest-api-example/lib/validator"
 	"github.com/evt/rest-api-example/logger"
-
-	"github.com/evt/rest-api-example/service/web"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -41,20 +38,21 @@ func run() error {
 	// logger
 	l := logger.Get()
 
-	// store
+	// Init repository store (with mysql/postgresql inside)
 	store, err := store.New(ctx, cfg)
 	if err != nil {
 		return errors.Wrap(err, "store.New failed")
 	}
 
-	// Init services
-	userService := web.NewUserWebService(ctx, store)
-	fileService := web.NewFileWebService(ctx, store)
-	fileContentService := gcloudService.NewFileContentService(ctx, store)
+	// Init service manager
+	serviceManager, err := service.NewManager(ctx, store)
+	if err != nil {
+		return errors.Wrap(err, "manager.New failed")
+	}
 
 	// Init controllers
-	userController := controller.NewUsers(ctx, userService, l)
-	fileController := controller.NewFiles(ctx, fileService, fileContentService, l)
+	userController := controller.NewUsers(ctx, serviceManager, l)
+	fileController := controller.NewFiles(ctx, serviceManager, l)
 
 	// Initialize Echo instance
 	e := echo.New()

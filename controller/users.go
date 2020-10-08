@@ -18,17 +18,17 @@ import (
 
 // UserController ...
 type UserController struct {
-	ctx     context.Context
-	userSvc service.UserService
-	logger  *logger.Logger
+	ctx      context.Context
+	services *service.Manager
+	logger   *logger.Logger
 }
 
 // NewUsers creates a new user controller.
-func NewUsers(ctx context.Context, userSvc service.UserService, logger *logger.Logger) *UserController {
+func NewUsers(ctx context.Context, services *service.Manager, logger *logger.Logger) *UserController {
 	return &UserController{
-		ctx:     ctx,
-		userSvc: userSvc,
-		logger:  logger,
+		ctx:      ctx,
+		services: services,
+		logger:   logger,
 	}
 }
 
@@ -44,7 +44,7 @@ func (ctr *UserController) Create(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	createdUser, err := ctr.userSvc.CreateUser(ctx.Request().Context(), &user)
+	createdUser, err := ctr.services.User.CreateUser(ctx.Request().Context(), &user)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrBadRequest:
@@ -65,7 +65,7 @@ func (ctr *UserController) Get(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse user UUID"))
 	}
-	user, err := ctr.userSvc.GetUser(ctx.Request().Context(), userID)
+	user, err := ctr.services.User.GetUser(ctx.Request().Context(), userID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -85,7 +85,7 @@ func (ctr *UserController) Delete(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse user UUID"))
 	}
-	err = ctr.userSvc.DeleteUser(ctx.Request().Context(), userID)
+	err = ctr.services.User.DeleteUser(ctx.Request().Context(), userID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
