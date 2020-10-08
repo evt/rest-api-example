@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/evt/rest-api-example/repository"
+
 	"github.com/evt/rest-api-example/model"
 	"github.com/google/uuid"
 
@@ -56,7 +58,7 @@ func TestGetUser(t *testing.T) {
 		ctx := context.Background()
 
 		userRepo := &mocks.UserRepo{}
-		svc := NewUserWebService(context.Background(), userRepo)
+		svc := NewUserWebService(context.Background(), &repository.Store{User: userRepo})
 		test.expectations(userRepo)
 
 		_, err := svc.GetUser(ctx, test.input.ID)
