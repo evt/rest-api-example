@@ -14,17 +14,15 @@ import (
 
 // FileContentService ...
 type FileContentService struct {
-	ctx             context.Context
-	fileRepo        repository.FileRepo
-	fileContentRepo repository.FileContentRepo
+	ctx   context.Context
+	store *repository.Store
 }
 
 // NewFileContentService creates a new file content service
-func NewFileContentService(ctx context.Context, fileRepo repository.FileRepo, fileContentRepo repository.FileContentRepo) *FileContentService {
+func NewFileContentService(ctx context.Context, store *repository.Store) *FileContentService {
 	return &FileContentService{
-		ctx:             ctx,
-		fileRepo:        fileRepo,
-		fileContentRepo: fileContentRepo,
+		ctx:   ctx,
+		store: store,
 	}
 }
 
@@ -34,17 +32,17 @@ func (svc *FileContentService) Upload(ctx context.Context, fileID uuid.UUID, fil
 		return errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.fileRepo.GetFile(ctx, fileID)
+	fileDB, err := svc.store.File.GetFile(ctx, fileID)
 	if err != nil {
-		return errors.Wrap(err, "svc.fileRepo.GetFile")
+		return errors.Wrap(err, "svc.store.File.GetFile")
 	}
 	if fileDB == nil {
 		return errors.Wrap(types.ErrBadRequest, fmt.Sprintf("File '%s' not found", fileID.String()))
 	}
 	// Upload file contents to the cloud
-	err = svc.fileContentRepo.Upload(ctx, fileDB, fileBody)
+	err = svc.store.FileContent.Upload(ctx, fileDB, fileBody)
 	if err != nil {
-		return errors.Wrap(err, "svc.fileContentRepo.Upload")
+		return errors.Wrap(err, "svc.store.FileContent.Upload")
 	}
 
 	return nil
@@ -56,17 +54,17 @@ func (svc *FileContentService) Download(ctx context.Context, fileID uuid.UUID) (
 		return nil, nil, errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.fileRepo.GetFile(ctx, fileID)
+	fileDB, err := svc.store.File.GetFile(ctx, fileID)
 	if err != nil {
-		return nil, nil, errors.Wrap(err, "svc.fileRepo.GetFile")
+		return nil, nil, errors.Wrap(err, "svc.store.File.GetFile")
 	}
 	if fileDB == nil {
 		return nil, nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("File '%s' not found", fileID.String()))
 	}
 	// Upload file contents to the cloud
-	fileContent, err := svc.fileContentRepo.Download(ctx, fileDB)
+	fileContent, err := svc.store.FileContent.Download(ctx, fileDB)
 	if err != nil {
-		return nil, nil, errors.Wrap(err, "svc.fileContentRepo.Download")
+		return nil, nil, errors.Wrap(err, "svc.store.FileContent.Download")
 	}
 
 	return fileContent, fileDB, nil

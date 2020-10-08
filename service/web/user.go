@@ -13,21 +13,21 @@ import (
 
 // UserWebService ...
 type UserWebService struct {
-	ctx      context.Context
-	userRepo repository.UserRepo
+	ctx   context.Context
+	store *repository.Store
 }
 
 // NewUserWebService creates a new user web service
-func NewUserWebService(ctx context.Context, user repository.UserRepo) *UserWebService {
+func NewUserWebService(ctx context.Context, store *repository.Store) *UserWebService {
 	return &UserWebService{
-		ctx:      ctx,
-		userRepo: user,
+		ctx:   ctx,
+		store: store,
 	}
 }
 
 // GetUser ...
 func (svc *UserWebService) GetUser(ctx context.Context, userID uuid.UUID) (*model.User, error) {
-	userDB, err := svc.userRepo.GetUser(ctx, userID)
+	userDB, err := svc.store.User.GetUser(ctx, userID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.GetUser")
 	}
@@ -42,13 +42,13 @@ func (svc *UserWebService) GetUser(ctx context.Context, userID uuid.UUID) (*mode
 func (svc UserWebService) CreateUser(ctx context.Context, reqUser *model.User) (*model.User, error) {
 	reqUser.ID = uuid.New()
 
-	_, err := svc.userRepo.CreateUser(ctx, reqUser.ToDB())
+	_, err := svc.store.User.CreateUser(ctx, reqUser.ToDB())
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.CreateUser error")
 	}
 
 	// get created user by ID
-	createdDBUser, err := svc.userRepo.GetUser(ctx, reqUser.ID)
+	createdDBUser, err := svc.store.User.GetUser(ctx, reqUser.ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.GetUser error")
 	}
@@ -58,7 +58,7 @@ func (svc UserWebService) CreateUser(ctx context.Context, reqUser *model.User) (
 
 // UpdateUser ...
 func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) (*model.User, error) {
-	userDB, err := svc.userRepo.GetUser(ctx, reqUser.ID)
+	userDB, err := svc.store.User.GetUser(ctx, reqUser.ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.GetUser error")
 	}
@@ -67,13 +67,13 @@ func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) 
 	}
 
 	// update user
-	_, err = svc.userRepo.UpdateUser(ctx, reqUser.ToDB())
+	_, err = svc.store.User.UpdateUser(ctx, reqUser.ToDB())
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.UpdateUser error")
 	}
 
 	// get updated user by ID
-	updatedDBUser, err := svc.userRepo.GetUser(ctx, reqUser.ID)
+	updatedDBUser, err := svc.store.User.GetUser(ctx, reqUser.ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.user.GetUser error")
 	}
@@ -84,7 +84,7 @@ func (svc *UserWebService) UpdateUser(ctx context.Context, reqUser *model.User) 
 // DeleteUser ...
 func (svc *UserWebService) DeleteUser(ctx context.Context, userID uuid.UUID) error {
 	// Check if user exists
-	userDB, err := svc.userRepo.GetUser(ctx, userID)
+	userDB, err := svc.store.User.GetUser(ctx, userID)
 	if err != nil {
 		return errors.Wrap(err, "svc.user.GetUser error")
 	}
@@ -92,7 +92,7 @@ func (svc *UserWebService) DeleteUser(ctx context.Context, userID uuid.UUID) err
 		return errors.Wrap(types.ErrNotFound, fmt.Sprintf("User '%s' not found", userID.String()))
 	}
 
-	err = svc.userRepo.DeleteUser(ctx, userID)
+	err = svc.store.User.DeleteUser(ctx, userID)
 	if err != nil {
 		return errors.Wrap(err, "svc.user.DeleteUser error")
 	}

@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/evt/rest-api-example/repository"
+
 	"github.com/evt/rest-api-example/mysqldb"
 	echoLog "github.com/labstack/gommon/log"
 
@@ -87,42 +89,24 @@ func run() error {
 		log.Fatal(err)
 	}
 
+	// store includes all repositories we have
+	store := &repository.Store{}
+
 	// Init Postgres repositories
-	var (
-		userPgRepo *pgrepo.UserPgRepo
-		filePgRepo *pgrepo.FilePgRepo
-	)
 	if pgDB != nil {
-		userPgRepo = pgrepo.NewUserRepo(pgDB)
-		filePgRepo = pgrepo.NewFileRepo(pgDB)
+		store.User = pgrepo.NewUserRepo(pgDB)
+		store.File = pgrepo.NewFileRepo(pgDB)
 	}
 	// Init MySQL repositories
-	var (
-		userMysqlRepo *mysqlrepo.UserMysqlRepo
-		fileMysqlRepo *mysqlrepo.FileMysqlRepo
-	)
 	if mysqlDB != nil {
-		userMysqlRepo = mysqlrepo.NewUserRepo(mysqlDB)
-		fileMysqlRepo = mysqlrepo.NewFileRepo(mysqlDB)
+		store.User = mysqlrepo.NewUserRepo(mysqlDB)
+		store.File = mysqlrepo.NewFileRepo(mysqlDB)
 	}
-	fileContentRepo := gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
+	store.FileContent = gcloudRepo.NewFileRepo(cloudStorage, cfg.GCBucket)
 
-	// Init services
-	var (
-		userService        *web.UserWebService
-		fileService        *web.FileWebService
-		fileContentService *gcloudService.FileContentService
-	)
-	if pgDB != nil {
-		userService = web.NewUserWebService(ctx, userPgRepo)
-		fileService = web.NewFileWebService(ctx, filePgRepo)
-		fileContentService = gcloudService.NewFileContentService(ctx, filePgRepo, fileContentRepo)
-	}
-	if mysqlDB != nil {
-		userService = web.NewUserWebService(ctx, userMysqlRepo)
-		fileService = web.NewFileWebService(ctx, fileMysqlRepo)
-		fileContentService = gcloudService.NewFileContentService(ctx, fileMysqlRepo, fileContentRepo)
-	}
+	userService := web.NewUserWebService(ctx, store)
+	fileService := web.NewFileWebService(ctx, store)
+	fileContentService := gcloudService.NewFileContentService(ctx, store)
 
 	// Init controllers
 	userController := controller.NewUsers(ctx, userService, l)
