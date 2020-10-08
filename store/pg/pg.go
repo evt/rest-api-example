@@ -16,15 +16,12 @@ type DB struct {
 }
 
 // Dial creates new database connection to postgres
-func Dial(cfg *config.Config) (*DB, error) {
-	pgOpts := &pg.Options{}
-
-	var err error
-
+func Dial() (*DB, error) {
+	cfg := config.Get()
 	if cfg.PgURL == "" {
 		return nil, nil
 	}
-	pgOpts, err = pg.ParseURL(cfg.PgURL)
+	pgOpts, err := pg.ParseURL(cfg.PgURL)
 	if err != nil {
 		return nil, err
 	}
@@ -36,9 +33,7 @@ func Dial(cfg *config.Config) (*DB, error) {
 		return nil, err
 	}
 
-	if Timeout > 0 {
-		pgDB.WithTimeout(time.Second * time.Duration(Timeout))
-	}
+	pgDB.WithTimeout(time.Second * time.Duration(Timeout))
 
 	return &DB{pgDB}, nil
 }

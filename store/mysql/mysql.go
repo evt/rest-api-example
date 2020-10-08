@@ -13,7 +13,8 @@ type MySQL struct {
 }
 
 // Dial creates new database connection to postgres
-func Dial(cfg *config.Config) (*MySQL, error) {
+func Dial() (*MySQL, error) {
+	cfg := config.Get()
 	if cfg.MysqlDB == "" {
 		return nil, nil
 	}

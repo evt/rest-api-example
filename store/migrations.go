@@ -13,7 +13,8 @@ import (
 )
 
 // runPgMigrations runs Postgres migrations
-func runPgMigrations(cfg *config.Config) error {
+func runPgMigrations() error {
+	cfg := config.Get()
 	if cfg.PgMigrationsPath == "" {
 		return nil
 	}
@@ -34,7 +35,8 @@ func runPgMigrations(cfg *config.Config) error {
 }
 
 // runMysqlMigrations runs MySQL migrations
-func runMysqlMigrations(cfg *config.Config) error {
+func runMysqlMigrations() error {
+	cfg := config.Get()
 	if cfg.MysqlMigrationsPath == "" {
 		return nil
 	}

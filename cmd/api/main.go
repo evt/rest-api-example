@@ -39,7 +39,7 @@ func run() error {
 	l := logger.Get()
 
 	// Init repository store (with mysql/postgresql inside)
-	store, err := store.New(ctx, cfg)
+	store, err := store.New(ctx)
 	if err != nil {
 		return errors.Wrap(err, "store.New failed")
 	}
