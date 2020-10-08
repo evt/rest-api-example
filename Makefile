@@ -11,7 +11,7 @@ build:
 run:
 	cd cmd/api; ./rundev.sh
 
-test:
+tests:
 	go test -v -race -timeout 30s ./...
 
 .DEFAULT_GOAL := run
