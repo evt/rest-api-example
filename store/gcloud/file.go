@@ -13,12 +13,12 @@ import (
 
 // GoogleCloudFileRepo ...
 type GoogleCloudFileRepo struct {
-	storage *GCloudStorage
+	storage *Storage
 	bucket  string
 }
 
 // NewFileRepo ...
-func NewFileRepo(storage *GCloudStorage, bucket string) *GoogleCloudFileRepo {
+func NewFileRepo(storage *Storage, bucket string) *GoogleCloudFileRepo {
 	return &GoogleCloudFileRepo{storage: storage, bucket: bucket}
 }
 

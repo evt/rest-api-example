@@ -6,16 +6,16 @@ import (
 	"cloud.google.com/go/storage"
 )
 
-// GCloudStorage is a wrapper for Google Cloud storage client
-type GCloudStorage struct {
+// Storage is a wrapper for Google Cloud storage client
+type Storage struct {
 	*storage.Client
 }
 
 // Init creates new cloud storage client
-func Init(ctx context.Context) (*GCloudStorage, error) {
+func Init(ctx context.Context) (*Storage, error) {
 	client, err := storage.NewClient(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return &GCloudStorage{client}, nil
+	return &Storage{client}, nil
 }

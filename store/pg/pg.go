@@ -10,13 +10,13 @@ import (
 // Timeout is a Postgres timeout
 const Timeout = 5
 
-// PgDB is a shortcut structure to a Postgres DB
-type PgDB struct {
+// DB is a shortcut structure to a Postgres DB
+type DB struct {
 	*pg.DB
 }
 
 // Dial creates new database connection to postgres
-func Dial(cfg *config.Config) (*PgDB, error) {
+func Dial(cfg *config.Config) (*DB, error) {
 	pgOpts := &pg.Options{}
 
 	var err error
@@ -40,5 +40,5 @@ func Dial(cfg *config.Config) (*PgDB, error) {
 		pgDB.WithTimeout(time.Second * time.Duration(Timeout))
 	}
 
-	return &PgDB{pgDB}, nil
+	return &DB{pgDB}, nil
 }

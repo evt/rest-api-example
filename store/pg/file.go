@@ -11,11 +11,11 @@ import (
 
 // FilePgRepo ...
 type FilePgRepo struct {
-	db *PgDB
+	db *DB
 }
 
 // NewFileRepo ...
-func NewFileRepo(db *PgDB) *FilePgRepo {
+func NewFileRepo(db *DB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 

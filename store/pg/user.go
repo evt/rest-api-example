@@ -11,11 +11,11 @@ import (
 
 // UserPgRepo ...
 type UserPgRepo struct {
-	db *PgDB
+	db *DB
 }
 
 // NewUserRepo ...
-func NewUserRepo(db *PgDB) *UserPgRepo {
+func NewUserRepo(db *DB) *UserPgRepo {
 	return &UserPgRepo{db: db}
 }
 
