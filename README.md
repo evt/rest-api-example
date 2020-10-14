@@ -28,6 +28,5 @@ This is Golang REST API server example including the following features:
 *   Postman tests included aswell
 *   config based on envconfig (<https://github.com/kelseyhightower/envconfig>)
 *   made relatively fast :) but with :heart: :)
-*   more details in my Youtube video that I'm going to make this week :)
 
 <img src="./images/make-run.png">
