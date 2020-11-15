@@ -3,7 +3,7 @@ export HTTP_ADDR=localhost:8080
 
 # google cloud storage
 export GOOGLE_APPLICATION_CREDENTIALS=./serviceaccount.json
-export GC_BUCKET=my-cool-bucket
+#export GC_BUCKET=my-cool-bucket
 
 # Postgres settings
 #export PG_URL=postgres://postgres:postgres@localhost/test?sslmode=disable

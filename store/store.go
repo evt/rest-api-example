@@ -31,12 +31,6 @@ type Store struct {
 func New(ctx context.Context) (*Store, error) {
 	cfg := config.Get()
 
-	// connect to google cloud
-	cloudStorage, err := gcloud.Init(ctx)
-	if err != nil {
-		return nil, errors.Wrap(err, "gcloud.Init failed")
-	}
-
 	// connect to Postgres
 	pgDB, err := pg.Dial()
 	if err != nil {
@@ -81,7 +75,15 @@ func New(ctx context.Context) (*Store, error) {
 		store.User = mysql.NewUserRepo(mysqlDB)
 		store.File = mysql.NewFileRepo(mysqlDB)
 	}
-	store.FileContent = gcloud.NewFileRepo(cloudStorage, cfg.GCBucket)
+
+	// connect to google cloud if bucket defined in config
+	if cfg.GCBucket != "" {
+		cloudStorage, err := gcloud.Init(ctx)
+		if err != nil {
+			return nil, errors.Wrap(err, "gcloud.Init failed")
+		}
+		store.FileContent = gcloud.NewFileRepo(cloudStorage, cfg.GCBucket)
+	}
 
 	return &store, nil
 }

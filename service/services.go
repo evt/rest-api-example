@@ -16,9 +16,9 @@ type UserService interface {
 	DeleteUser(context.Context, uuid.UUID) error
 }
 
-// FileService is a service for files
-//go:generate mockery --dir . --name FileService --output ./mocks
-type FileService interface {
+// FileMetaService is a service for files
+//go:generate mockery --dir . --name FileMetaService --output ./mocks
+type FileMetaService interface {
 	GetFile(context.Context, uuid.UUID) (*model.File, error)
 	CreateFile(context.Context, *model.File) (*model.File, error)
 	UpdateFile(context.Context, *model.File) (*model.File, error)

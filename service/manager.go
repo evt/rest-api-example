@@ -13,7 +13,7 @@ import (
 // Manager is just a collection of all services we have in the project
 type Manager struct {
 	User        UserService
-	File        FileService
+	File        FileMetaService
 	FileContent FileContentService
 }
 
