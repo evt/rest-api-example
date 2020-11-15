@@ -1,0 +1,29 @@
+version: "3.0"
+
+networks:
+  rest-api:
+
+services:
+
+  rest-api:
+    build: ./
+    command: ./rest-api
+    ports:
+      - 80:8080
+    depends_on:
+      - postgres
+    networks:
+      - rest-api
+
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./store/pg/data:/var/lib/postgresql/data
+    networks:
+      - rest-api
