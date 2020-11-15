@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/evt/rest-api-example/store/local"
+
 	"github.com/evt/rest-api-example/logger"
 
 	"github.com/evt/rest-api-example/store/gcloud"
@@ -76,13 +78,17 @@ func New(ctx context.Context) (*Store, error) {
 		store.File = mysql.NewFileMetaRepo(mysqlDB)
 	}
 
+	switch {
+	case cfg.FilePath != "":
+		store.FileContent = local.NewFileContentRepo(cfg.FilePath)
+
 	// connect to google cloud if bucket defined in config
-	if cfg.GCBucket != "" {
+	case cfg.GCBucket != "":
 		cloudStorage, err := gcloud.Init(ctx)
 		if err != nil {
 			return nil, errors.Wrap(err, "gcloud.Init failed")
 		}
-		store.FileContent = gcloud.NewFileMetaRepo(cloudStorage, cfg.GCBucket)
+		store.FileContent = gcloud.NewFileContentRepo(cloudStorage, cfg.GCBucket)
 	}
 
 	return &store, nil
