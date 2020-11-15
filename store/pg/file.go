@@ -14,13 +14,13 @@ type FilePgRepo struct {
 	db *DB
 }
 
-// NewFileRepo ...
-func NewFileRepo(db *DB) *FilePgRepo {
+// NewFileMetaRepo ...
+func NewFileMetaRepo(db *DB) *FilePgRepo {
 	return &FilePgRepo{db: db}
 }
 
-// GetFile retrieves file from MySQL
-func (repo *FilePgRepo) GetFile(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
+// GetFileMeta retrieves file from MySQL
+func (repo *FilePgRepo) GetFileMeta(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
 	file := &model.DBFile{}
 	err := repo.db.Model(file).
 		Where("id = ?", id).
@@ -34,8 +34,8 @@ func (repo *FilePgRepo) GetFile(ctx context.Context, id uuid.UUID) (*model.DBFil
 	return file, nil
 }
 
-// CreateFile creates file in Postgres
-func (repo *FilePgRepo) CreateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+// CreateFileMeta creates file in Postgres
+func (repo *FilePgRepo) CreateFileMeta(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
 	_, err := repo.db.Model(file).
 		Returning("*").
 		Insert()
@@ -45,8 +45,8 @@ func (repo *FilePgRepo) CreateFile(ctx context.Context, file *model.DBFile) (*mo
 	return file, nil
 }
 
-// UpdateFile updates file in Postgres
-func (repo *FilePgRepo) UpdateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+// UpdateFileMeta updates file in Postgres
+func (repo *FilePgRepo) UpdateFileMeta(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
 	_, err := repo.db.Model(file).
 		WherePK().
 		Returning("*").
@@ -61,8 +61,8 @@ func (repo *FilePgRepo) UpdateFile(ctx context.Context, file *model.DBFile) (*mo
 	return file, nil
 }
 
-// DeleteFile deletes file in Postgres
-func (repo *FilePgRepo) DeleteFile(ctx context.Context, id uuid.UUID) error {
+// DeleteFileMeta deletes file in Postgres
+func (repo *FilePgRepo) DeleteFileMeta(ctx context.Context, id uuid.UUID) error {
 	_, err := repo.db.Model((*model.DBFile)(nil)).
 		Where("id = ?", id).
 		Delete()

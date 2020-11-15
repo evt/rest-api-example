@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/evt/rest-api-example/service/gcloud"
+
 	"github.com/evt/rest-api-example/service/web"
 
 	"github.com/evt/rest-api-example/store"

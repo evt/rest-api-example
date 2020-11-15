@@ -23,7 +23,7 @@ type Store struct {
 	MySQL *mysql.MySQL // for KeepAliveMySQL (see below)
 
 	User        UserRepo
-	File        FileRepo
+	File        FileMetaRepo
 	FileContent FileContentRepo
 }
 
@@ -66,14 +66,14 @@ func New(ctx context.Context) (*Store, error) {
 		store.Pg = pgDB
 		go store.KeepAlivePg()
 		store.User = pg.NewUserRepo(pgDB)
-		store.File = pg.NewFileRepo(pgDB)
+		store.File = pg.NewFileMetaRepo(pgDB)
 	}
 	// Init MySQL repositories
 	if mysqlDB != nil {
 		store.MySQL = mysqlDB
 		go store.KeepAliveMySQL()
 		store.User = mysql.NewUserRepo(mysqlDB)
-		store.File = mysql.NewFileRepo(mysqlDB)
+		store.File = mysql.NewFileMetaRepo(mysqlDB)
 	}
 
 	// connect to google cloud if bucket defined in config
@@ -82,7 +82,7 @@ func New(ctx context.Context) (*Store, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, "gcloud.Init failed")
 		}
-		store.FileContent = gcloud.NewFileRepo(cloudStorage, cfg.GCBucket)
+		store.FileContent = gcloud.NewFileMetaRepo(cloudStorage, cfg.GCBucket)
 	}
 
 	return &store, nil

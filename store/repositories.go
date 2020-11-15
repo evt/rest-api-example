@@ -17,16 +17,16 @@ type UserRepo interface {
 	DeleteUser(context.Context, uuid.UUID) error
 }
 
-// FileRepo is a store for files
-//go:generate mockery --dir . --name FileRepo --output ./mocks
-type FileRepo interface {
-	GetFile(context.Context, uuid.UUID) (*model.DBFile, error)
-	CreateFile(context.Context, *model.DBFile) (*model.DBFile, error)
-	UpdateFile(context.Context, *model.DBFile) (*model.DBFile, error)
-	DeleteFile(context.Context, uuid.UUID) error
+// FileMetaRepo is a store for files
+//go:generate mockery --dir . --name FileMetaRepo --output ./mocks
+type FileMetaRepo interface {
+	GetFileMeta(context.Context, uuid.UUID) (*model.DBFile, error)
+	CreateFileMeta(context.Context, *model.DBFile) (*model.DBFile, error)
+	UpdateFileMeta(context.Context, *model.DBFile) (*model.DBFile, error)
+	DeleteFileMeta(context.Context, uuid.UUID) error
 }
 
-// FileContentRepo is a store for file contennt
+// FileContentRepo is a store for file content
 //go:generate mockery --dir . --name FileContentRepo --output ./mocks
 type FileContentRepo interface {
 	Upload(context.Context, *model.DBFile, []byte) error

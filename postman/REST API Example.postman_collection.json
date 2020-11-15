@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8e87341e-2892-494b-a0e9-8ff700847a2e",
+		"_postman_id": "6b1a13d2-f606-40f1-a704-bd0758058264",
 		"name": "REST API Example",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -28,7 +28,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:1323/v1/user/41a381d8-ef72-4478-b03e-501a4debd37e"
+				"url": "http://{{rest_api_addr}}/v1/user/41a381d8-ef72-4478-b03e-501a4debd37e"
 			},
 			"response": []
 		},

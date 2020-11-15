@@ -16,8 +16,8 @@ type FileMetaService struct {
 	mock.Mock
 }
 
-// CreateFile provides a mock function with given fields: _a0, _a1
-func (_m *FileMetaService) CreateFile(_a0 context.Context, _a1 *model.File) (*model.File, error) {
+// CreateFileMeta provides a mock function with given fields: _a0, _a1
+func (_m *FileMetaService) CreateFileMeta(_a0 context.Context, _a1 *model.File) (*model.File, error) {
 	ret := _m.Called(_a0, _a1)
 
 	var r0 *model.File
@@ -39,8 +39,8 @@ func (_m *FileMetaService) CreateFile(_a0 context.Context, _a1 *model.File) (*mo
 	return r0, r1
 }
 
-// DeleteFile provides a mock function with given fields: _a0, _a1
-func (_m *FileMetaService) DeleteFile(_a0 context.Context, _a1 uuid.UUID) error {
+// DeleteFileMeta provides a mock function with given fields: _a0, _a1
+func (_m *FileMetaService) DeleteFileMeta(_a0 context.Context, _a1 uuid.UUID) error {
 	ret := _m.Called(_a0, _a1)
 
 	var r0 error
@@ -53,8 +53,8 @@ func (_m *FileMetaService) DeleteFile(_a0 context.Context, _a1 uuid.UUID) error 
 	return r0
 }
 
-// GetFile provides a mock function with given fields: _a0, _a1
-func (_m *FileMetaService) GetFile(_a0 context.Context, _a1 uuid.UUID) (*model.File, error) {
+// GetFileMeta provides a mock function with given fields: _a0, _a1
+func (_m *FileMetaService) GetFileMeta(_a0 context.Context, _a1 uuid.UUID) (*model.File, error) {
 	ret := _m.Called(_a0, _a1)
 
 	var r0 *model.File
@@ -76,8 +76,8 @@ func (_m *FileMetaService) GetFile(_a0 context.Context, _a1 uuid.UUID) (*model.F
 	return r0, r1
 }
 
-// UpdateFile provides a mock function with given fields: _a0, _a1
-func (_m *FileMetaService) UpdateFile(_a0 context.Context, _a1 *model.File) (*model.File, error) {
+// UpdateFileMeta provides a mock function with given fields: _a0, _a1
+func (_m *FileMetaService) UpdateFileMeta(_a0 context.Context, _a1 *model.File) (*model.File, error) {
 	ret := _m.Called(_a0, _a1)
 
 	var r0 *model.File

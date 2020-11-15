@@ -32,9 +32,9 @@ func (svc *FileContentService) Upload(ctx context.Context, fileID uuid.UUID, fil
 		return errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.store.File.GetFile(ctx, fileID)
+	fileDB, err := svc.store.File.GetFileMeta(ctx, fileID)
 	if err != nil {
-		return errors.Wrap(err, "svc.store.File.GetFile")
+		return errors.Wrap(err, "svc.store.File.GetFileMeta")
 	}
 	if fileDB == nil {
 		return errors.Wrap(types.ErrBadRequest, fmt.Sprintf("File '%s' not found", fileID.String()))
@@ -54,9 +54,9 @@ func (svc *FileContentService) Download(ctx context.Context, fileID uuid.UUID) (
 		return nil, nil, errors.New("No file provided")
 	}
 	// Get file from DB
-	fileDB, err := svc.store.File.GetFile(ctx, fileID)
+	fileDB, err := svc.store.File.GetFileMeta(ctx, fileID)
 	if err != nil {
-		return nil, nil, errors.Wrap(err, "svc.store.File.GetFile")
+		return nil, nil, errors.Wrap(err, "svc.store.File.GetFileMeta")
 	}
 	if fileDB == nil {
 		return nil, nil, errors.Wrap(types.ErrBadRequest, fmt.Sprintf("File '%s' not found", fileID.String()))
