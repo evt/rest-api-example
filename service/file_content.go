@@ -1,4 +1,4 @@
-package gcloud
+package service
 
 import (
 	"context"
@@ -12,22 +12,22 @@ import (
 	"github.com/pkg/errors"
 )
 
-// FileContentService ...
-type FileContentService struct {
+// FileContentSvc ...
+type FileContentSvc struct {
 	ctx   context.Context
 	store *store.Store
 }
 
-// NewFileContentService creates a new file content service
-func NewFileContentService(ctx context.Context, store *store.Store) *FileContentService {
-	return &FileContentService{
+// NewFileContentSvc creates a new file content service
+func NewFileContentSvc(ctx context.Context, store *store.Store) *FileContentSvc {
+	return &FileContentSvc{
 		ctx:   ctx,
 		store: store,
 	}
 }
 
 // Upload file content to the cloud
-func (svc *FileContentService) Upload(ctx context.Context, fileID uuid.UUID, fileBody []byte) error {
+func (svc *FileContentSvc) Upload(ctx context.Context, fileID uuid.UUID, fileBody []byte) error {
 	if len(fileID) == 0 {
 		return errors.New("No file provided")
 	}
@@ -49,7 +49,7 @@ func (svc *FileContentService) Upload(ctx context.Context, fileID uuid.UUID, fil
 }
 
 // Download file content from the cloud
-func (svc *FileContentService) Download(ctx context.Context, fileID uuid.UUID) ([]byte, *model.DBFile, error) {
+func (svc *FileContentSvc) Download(ctx context.Context, fileID uuid.UUID) ([]byte, *model.DBFile, error) {
 	if len(fileID) == 0 {
 		return nil, nil, errors.New("No file provided")
 	}

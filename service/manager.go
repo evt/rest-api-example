@@ -3,10 +3,6 @@ package service
 import (
 	"context"
 
-	"github.com/evt/rest-api-example/service/gcloud"
-
-	"github.com/evt/rest-api-example/service/web"
-
 	"github.com/evt/rest-api-example/store"
 	"github.com/pkg/errors"
 )
@@ -24,8 +20,8 @@ func NewManager(ctx context.Context, store *store.Store) (*Manager, error) {
 		return nil, errors.New("No store provided")
 	}
 	return &Manager{
-		User:        web.NewUserWebService(ctx, store),
-		FileMeta:    web.NewFileMetaService(ctx, store),
-		FileContent: gcloud.NewFileContentService(ctx, store),
+		User:        NewUserWebService(ctx, store),
+		FileMeta:    NewFileMetaSvc(ctx, store),
+		FileContent: NewFileContentSvc(ctx, store),
 	}, nil
 }
