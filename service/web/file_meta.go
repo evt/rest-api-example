@@ -11,22 +11,22 @@ import (
 	"github.com/pkg/errors"
 )
 
-// FileWebService ...
-type FileWebService struct {
+// FileMetaService ...
+type FileMetaService struct {
 	ctx   context.Context
 	store *store.Store
 }
 
-// NewFileWebService creates a new file web service
-func NewFileWebService(ctx context.Context, store *store.Store) *FileWebService {
-	return &FileWebService{
+// NewFileMetaService creates a new file web service
+func NewFileMetaService(ctx context.Context, store *store.Store) *FileMetaService {
+	return &FileMetaService{
 		ctx:   ctx,
 		store: store,
 	}
 }
 
 // GetFileMeta ...
-func (svc *FileWebService) GetFileMeta(ctx context.Context, fileID uuid.UUID) (*model.File, error) {
+func (svc *FileMetaService) GetFileMeta(ctx context.Context, fileID uuid.UUID) (*model.File, error) {
 	fileDB, err := svc.store.File.GetFileMeta(ctx, fileID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.file.GetFileMeta")
@@ -39,7 +39,7 @@ func (svc *FileWebService) GetFileMeta(ctx context.Context, fileID uuid.UUID) (*
 }
 
 // CreateFileMeta ...
-func (svc FileWebService) CreateFileMeta(ctx context.Context, reqFile *model.File) (*model.File, error) {
+func (svc FileMetaService) CreateFileMeta(ctx context.Context, reqFile *model.File) (*model.File, error) {
 	reqFile.ID = uuid.New()
 
 	_, err := svc.store.File.CreateFileMeta(ctx, reqFile.ToDB())
@@ -57,7 +57,7 @@ func (svc FileWebService) CreateFileMeta(ctx context.Context, reqFile *model.Fil
 }
 
 // UpdateFileMeta ...
-func (svc *FileWebService) UpdateFileMeta(ctx context.Context, reqFile *model.File) (*model.File, error) {
+func (svc *FileMetaService) UpdateFileMeta(ctx context.Context, reqFile *model.File) (*model.File, error) {
 	fileDB, err := svc.store.File.GetFileMeta(ctx, reqFile.ID)
 	if err != nil {
 		return nil, errors.Wrap(err, "svc.file.GetFileMeta error")
@@ -82,7 +82,7 @@ func (svc *FileWebService) UpdateFileMeta(ctx context.Context, reqFile *model.Fi
 }
 
 // DeleteFileMeta ...
-func (svc *FileWebService) DeleteFileMeta(ctx context.Context, fileID uuid.UUID) error {
+func (svc *FileMetaService) DeleteFileMeta(ctx context.Context, fileID uuid.UUID) error {
 	// Check if file exists
 	fileDB, err := svc.store.File.GetFileMeta(ctx, fileID)
 	if err != nil {

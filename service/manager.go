@@ -14,7 +14,7 @@ import (
 // Manager is just a collection of all services we have in the project
 type Manager struct {
 	User        UserService
-	File        FileMetaService
+	FileMeta    FileMetaService
 	FileContent FileContentService
 }
 
@@ -25,7 +25,7 @@ func NewManager(ctx context.Context, store *store.Store) (*Manager, error) {
 	}
 	return &Manager{
 		User:        web.NewUserWebService(ctx, store),
-		File:        web.NewFileWebService(ctx, store),
+		FileMeta:    web.NewFileMetaService(ctx, store),
 		FileContent: gcloud.NewFileContentService(ctx, store),
 	}, nil
 }
