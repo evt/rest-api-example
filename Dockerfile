@@ -1,20 +1,11 @@
-# Build the project
-FROM golang:1.14 as builder
+FROM golang:1.15
 
-WORKDIR /usr/app
-ADD . .
+COPY . /go/src/app
 
-RUN make build
+WORKDIR /go/src/app/cmd/api
 
-# Create production image for application with needed files
-FROM golang:1.14
+RUN go build -o rest-api main.go
 
 EXPOSE 8080
-RUN apt-get update && apt-get install ca-certificates
 
-COPY --from=builder /usr/app/cmd/api/rest-api .
-COPY --from=builder /usr/app/cmd/api/env.docker.sh .
-COPY --from=builder /usr/app/store/pg/migrations ./pg/migrations
-COPY --from=builder /usr/app/store/mysql/migrations ./mysql/migrations
-
-CMD ["bash","-c", "cat ./env.docker.sh; source ./env.docker.sh; ./rest-api"]
+CMD ["bash","-c", "source env.docker.sh && rest-api"]

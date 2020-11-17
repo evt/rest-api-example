@@ -14,7 +14,7 @@ export FILE_PATH=../../files
 
 # Postgres settings
 export PG_URL=postgres://postgres:postgres@postgres/test?sslmode=disable
-export PG_MIGRATIONS_PATH=file://./pg/migrations
+export PG_MIGRATIONS_PATH=file://../../store/pg/migrations
 
 # MySQL settings
 #export MYSQL_ADDR=127.0.0.1:3306
