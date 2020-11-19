@@ -8,4 +8,4 @@ RUN go build -o rest-api main.go
 
 EXPOSE 8080
 
-CMD ["bash","-c", "source env.docker.sh && rest-api"]
+CMD ["./rest-api"]
