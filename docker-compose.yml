@@ -1,0 +1,37 @@
+version: "3.0"
+
+networks:
+  rest-api:
+
+services:
+
+  rest-api:
+    environment:
+      - HTTP_ADDR=:8080
+      - FILE_PATH=../../files
+      - PG_URL=postgres://postgres:postgres@postgres/restapi?sslmode=disable
+      - PG_MIGRATIONS_PATH=file://../../store/pg/migrations
+      - LOG_LEVEL=debug
+    build: ./
+    command: ["./wait-for-it.sh", "postgres:5432", "--timeout=60", "--", "./rest-api"]
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    networks:
+      - rest-api
+
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=restapi
+    volumes:
+      - ./store/pg/data:/var/lib/postgresql/data
+    networks:
+      - rest-api

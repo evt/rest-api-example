@@ -16,13 +16,13 @@ type UserService interface {
 	DeleteUser(context.Context, uuid.UUID) error
 }
 
-// FileService is a service for files
-//go:generate mockery --dir . --name FileService --output ./mocks
-type FileService interface {
-	GetFile(context.Context, uuid.UUID) (*model.File, error)
-	CreateFile(context.Context, *model.File) (*model.File, error)
-	UpdateFile(context.Context, *model.File) (*model.File, error)
-	DeleteFile(context.Context, uuid.UUID) error
+// FileMetaService is a service for files
+//go:generate mockery --dir . --name FileMetaService --output ./mocks
+type FileMetaService interface {
+	GetFileMeta(context.Context, uuid.UUID) (*model.File, error)
+	CreateFileMeta(context.Context, *model.File) (*model.File, error)
+	UpdateFileMeta(context.Context, *model.File) (*model.File, error)
+	DeleteFileMeta(context.Context, uuid.UUID) error
 }
 
 // FileContentService is a service to upload file content

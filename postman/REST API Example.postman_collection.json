@@ -1,12 +1,26 @@
 {
 	"info": {
-		"_postman_id": "8e87341e-2892-494b-a0e9-8ff700847a2e",
+		"_postman_id": "6b1a13d2-f606-40f1-a704-bd0758058264",
 		"name": "REST API Example",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "http://localhost:1323/v1/user/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "113ad07e-10a2-4a6d-a942-7e9464339dcb",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"user_id\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -19,7 +33,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/v1/user/"
+				"url": "{{rest_api_addr}}/v1/user/"
 			},
 			"response": []
 		},
@@ -28,7 +42,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:1323/v1/user/41a381d8-ef72-4478-b03e-501a4debd37e"
+				"url": "{{rest_api_addr}}/v1/user/{{user_id}}"
 			},
 			"response": []
 		},
@@ -46,12 +60,26 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/v1/user/b2097b84-f83b-45f7-a78b-f0b66bae921b"
+				"url": "{{rest_api_addr}}/v1/user/{{user_id}}"
 			},
 			"response": []
 		},
 		{
 			"name": "http://localhost:1323/v1/file/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1335e6d9-a4ef-4872-9bb6-4c33e511c69c",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"file_id\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -64,7 +92,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/v1/file/"
+				"url": "{{rest_api_addr}}/v1/file/"
 			},
 			"response": []
 		},
@@ -94,7 +122,7 @@
 				"body": {
 					"mode": "file",
 					"file": {
-						"src": "/Users/jt/Downloads/6nomads/Eugene.pdf"
+						"src": "/Users/jt/Downloads/Eugene (4).pdf"
 					},
 					"options": {
 						"raw": {
@@ -102,7 +130,7 @@
 						}
 					}
 				},
-				"url": "http://localhost:1323/v1/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+				"url": "{{rest_api_addr}}/v1/file/{{file_id}}/content"
 			},
 			"response": []
 		},
@@ -111,7 +139,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:1323/v1/file/d433bdcf-d0a7-496f-8a31-876cee09e6eb/content"
+				"url": "{{rest_api_addr}}/v1/file/{{file_id}}/content"
 			},
 			"response": []
 		}

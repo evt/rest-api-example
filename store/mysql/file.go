@@ -16,13 +16,13 @@ type FileMysqlRepo struct {
 	db *MySQL
 }
 
-// NewFileRepo ...
-func NewFileRepo(db *MySQL) *FileMysqlRepo {
+// NewFileMetaRepo ...
+func NewFileMetaRepo(db *MySQL) *FileMysqlRepo {
 	return &FileMysqlRepo{db: db}
 }
 
-// GetFile retrieves file from Postgres
-func (repo *FileMysqlRepo) GetFile(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
+// GetFileMeta retrieves file from Postgres
+func (repo *FileMysqlRepo) GetFileMeta(ctx context.Context, id uuid.UUID) (*model.DBFile, error) {
 	if len(id) == 0 {
 		return nil, errors.New("No file ID provided")
 	}
@@ -37,8 +37,8 @@ func (repo *FileMysqlRepo) GetFile(ctx context.Context, id uuid.UUID) (*model.DB
 	return &file, nil
 }
 
-// CreateFile creates file in Postgres
-func (repo *FileMysqlRepo) CreateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+// CreateFileMeta creates file in Postgres
+func (repo *FileMysqlRepo) CreateFileMeta(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
 	if file == nil {
 		return nil, errors.New("No file provided")
 	}
@@ -49,8 +49,8 @@ func (repo *FileMysqlRepo) CreateFile(ctx context.Context, file *model.DBFile) (
 	return file, nil
 }
 
-// UpdateFile updates file in Postgres
-func (repo *FileMysqlRepo) UpdateFile(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
+// UpdateFileMeta updates file in Postgres
+func (repo *FileMysqlRepo) UpdateFileMeta(ctx context.Context, file *model.DBFile) (*model.DBFile, error) {
 	err := repo.db.Save(file).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound { //not found
@@ -62,8 +62,8 @@ func (repo *FileMysqlRepo) UpdateFile(ctx context.Context, file *model.DBFile) (
 	return file, nil
 }
 
-// DeleteFile deletes file in Postgres
-func (repo *FileMysqlRepo) DeleteFile(ctx context.Context, id uuid.UUID) error {
+// DeleteFileMeta deletes file in Postgres
+func (repo *FileMysqlRepo) DeleteFileMeta(ctx context.Context, id uuid.UUID) error {
 	if len(id) == 0 {
 		return errors.New("No file ID provided")
 	}

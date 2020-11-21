@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/evt/rest-api-example/store/local"
+
 	"github.com/evt/rest-api-example/logger"
 
 	"github.com/evt/rest-api-example/store/gcloud"
@@ -23,19 +25,13 @@ type Store struct {
 	MySQL *mysql.MySQL // for KeepAliveMySQL (see below)
 
 	User        UserRepo
-	File        FileRepo
+	File        FileMetaRepo
 	FileContent FileContentRepo
 }
 
 // New creates new store
 func New(ctx context.Context) (*Store, error) {
 	cfg := config.Get()
-
-	// connect to google cloud
-	cloudStorage, err := gcloud.Init(ctx)
-	if err != nil {
-		return nil, errors.Wrap(err, "gcloud.Init failed")
-	}
 
 	// connect to Postgres
 	pgDB, err := pg.Dial()
@@ -72,16 +68,28 @@ func New(ctx context.Context) (*Store, error) {
 		store.Pg = pgDB
 		go store.KeepAlivePg()
 		store.User = pg.NewUserRepo(pgDB)
-		store.File = pg.NewFileRepo(pgDB)
+		store.File = pg.NewFileMetaRepo(pgDB)
 	}
 	// Init MySQL repositories
 	if mysqlDB != nil {
 		store.MySQL = mysqlDB
 		go store.KeepAliveMySQL()
 		store.User = mysql.NewUserRepo(mysqlDB)
-		store.File = mysql.NewFileRepo(mysqlDB)
+		store.File = mysql.NewFileMetaRepo(mysqlDB)
 	}
-	store.FileContent = gcloud.NewFileRepo(cloudStorage, cfg.GCBucket)
+
+	switch {
+	case cfg.FilePath != "":
+		store.FileContent = local.NewFileContentRepo(cfg.FilePath)
+
+	// connect to google cloud if bucket defined in config
+	case cfg.GCBucket != "":
+		cloudStorage, err := gcloud.Init(ctx)
+		if err != nil {
+			return nil, errors.Wrap(err, "gcloud.Init failed")
+		}
+		store.FileContent = gcloud.NewFileContentRepo(cloudStorage, cfg.GCBucket)
+	}
 
 	return &store, nil
 }

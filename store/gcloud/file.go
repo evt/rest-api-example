@@ -11,19 +11,19 @@ import (
 	"github.com/pkg/errors"
 )
 
-// GoogleCloudFileRepo ...
-type GoogleCloudFileRepo struct {
+// GoogleCloudFileContentRepo ...
+type GoogleCloudFileContentRepo struct {
 	storage *Storage
 	bucket  string
 }
 
-// NewFileRepo ...
-func NewFileRepo(storage *Storage, bucket string) *GoogleCloudFileRepo {
-	return &GoogleCloudFileRepo{storage: storage, bucket: bucket}
+// NewFileContentRepo ...
+func NewFileContentRepo(storage *Storage, bucket string) *GoogleCloudFileContentRepo {
+	return &GoogleCloudFileContentRepo{storage: storage, bucket: bucket}
 }
 
 // Upload file to Google Cloud storage
-func (repo *GoogleCloudFileRepo) Upload(ctx context.Context, dbFile *model.DBFile, fileBody []byte) error {
+func (repo *GoogleCloudFileContentRepo) Upload(ctx context.Context, dbFile *model.DBFile, fileBody []byte) error {
 	if dbFile == nil {
 		return errors.New("No DB file provided")
 	}
@@ -53,7 +53,7 @@ func (repo *GoogleCloudFileRepo) Upload(ctx context.Context, dbFile *model.DBFil
 }
 
 // Download file from Google Cloud storage
-func (repo *GoogleCloudFileRepo) Download(ctx context.Context, dbFile *model.DBFile) ([]byte, error) {
+func (repo *GoogleCloudFileContentRepo) Download(ctx context.Context, dbFile *model.DBFile) ([]byte, error) {
 	if dbFile == nil {
 		return nil, errors.New("No DB file provided")
 	}

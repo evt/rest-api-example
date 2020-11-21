@@ -21,6 +21,7 @@ type Config struct {
 	MysqlMigrationsPath string `envconfig:"MYSQL_MIGRATIONS_PATH"`
 	HTTPAddr            string `envconfig:"HTTP_ADDR"`
 	GCBucket            string `envconfig:"GC_BUCKET"`
+	FilePath            string `envconfig:"FILE_PATH"`
 }
 
 var (

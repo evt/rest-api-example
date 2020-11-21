@@ -46,7 +46,7 @@ func (ctr *FileController) Create(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
 
-	createdFile, err := ctr.services.File.CreateFile(ctx.Request().Context(), &file)
+	createdFile, err := ctr.services.FileMeta.CreateFileMeta(ctx.Request().Context(), &file)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -69,7 +69,7 @@ func (ctr *FileController) Get(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	file, err := ctr.services.File.GetFile(ctx.Request().Context(), fileID)
+	file, err := ctr.services.FileMeta.GetFileMeta(ctx.Request().Context(), fileID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
@@ -89,7 +89,7 @@ func (ctr *FileController) Delete(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.Wrap(err, "could not parse file UUID"))
 	}
-	err = ctr.services.File.DeleteFile(ctx.Request().Context(), fileID)
+	err = ctr.services.FileMeta.DeleteFileMeta(ctx.Request().Context(), fileID)
 	if err != nil {
 		switch {
 		case errors.Cause(err) == types.ErrNotFound:
